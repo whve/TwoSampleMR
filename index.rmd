@@ -13,6 +13,7 @@ bibliography: refs.bib
 knitr::opts_chunk$set(eval=TRUE, cache=TRUE)
 suppressWarnings(suppressPackageStartupMessages(library(TwoSampleMR)))
 suppressWarnings(suppressPackageStartupMessages(library(MRInstruments)))
+suppressWarnings(suppressPackageStartupMessages(library(knitr)))
 ```
 
 * * * 
@@ -195,7 +196,8 @@ rs1558902,0.39,0.020408163,A,T,0.42,5.00E-120,kg/m2,FTO,222476
 Note that this is a CSV file, with commas separating fields. The file is located here:
 
 ```{r }
-bmi2_file <- system.file("data/bmi2.csv", package="TwoSampleMR")
+
+bmi2_file <- system.file("data/bmi.csv", package="TwoSampleMR")
 ```
 
 To read in this data:
@@ -273,7 +275,7 @@ head(gwas_catalog)
 
 For example, to obtain instruments for body mass index using the Speliotes et al 2010 study:
 
-```{r }
+```{r eval=FALSE}
 bmi_gwas <- subset(gwas_catalog, grepl("Speliotes", Author) & Phenotype == "Body mass index (kg/m2 increase)")
 bmi_exp_dat <- format_data(bmi_gwas)
 ```
@@ -843,6 +845,41 @@ This function will create a separate report file for every exposure-outcome comb
 
 
 * * *
+
+## Directionality test
+
+In MR it is assumed that the instruments influence the exposure first and then the outcome through the exposure. But sometimes this is difficult to evaluate, for example is a cis-acting SNP influencing gene expression levels or DNA methylation levels first? The causal direction between the hypothesised exposure and outcomes can be tested using the Steiger test [reference to go here]. For example:
+
+```{r }
+out <- directionality_test(dat)
+kable(out)
+```
+
+It calculates the variance explained in the exposure and the outcome by the instrumenting SNPs, and tests if the variance in the outcome is less than the exposure.
+
+This test is, like many others, liable to give inaccurate causal directions under some measurement error parameters in the exposure and the outcome (e.g. if the outcome has much lower measurement precision then its proportion of variance explained will be underestimated). Sensitivity can be applied to evaluate the extent to which the inferred causal direction is liable to measurement error, in two ways. 
+
+1. Provide estimates of measurement error for the exposure and the outcome, and obtain an adjusted estimate of the causal direction
+2. For all possible values of measurement error, identify the proportion of the parameter space which supports the inferred causal direction
+
+These tests are obtained using:
+
+```{r, warnings=FALSE}
+mr_steiger(
+	p_exp = dat$pval.exposure, 
+	p_out = dat$pval.outcome, 
+	n_exp = dat$samplesize.exposure, 
+	n_out = dat$samplesize.outcome, 
+	r_xxo = 1, 
+	r_yyo = 1
+)
+
+```
+
+* * *
+
+
+
 
 # References
 
