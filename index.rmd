@@ -878,7 +878,83 @@ mr_steiger(
 
 * * *
 
+## Multivariable MR
 
+When SNPs instrument multiple potential exposures, for example in the case of different lipid fractions, one method for overcoming this problem is to estimate the influence of each lipid conditioning on the effects of the SNPs on the other lipids. Multivariable MR can be performed using the R package as follows.
+
+The GWAS IDs for HDL, LDL and total cholesterol are 299, 300 and 302. The GWAS ID for coronary heart disease (CHD) is 7. In this example we will estimate the multivariable effects of HDL, LDL and total cholesterol on CHD.
+
+```{r eval=FALSE}
+id_exposure <- c(299, 300, 302)
+id_outcome <- 7
+```
+
+First obtain the instruments for each lipid fraction. This entails obtaining a combined set of SNPs including all instruments, and getting those SNPs for each lipid fraction. Therefore, if there are e.g. 20 instruments for each of 3 lipid fractions, but combined there are 30 unique SNPs, then we need to extract each of the 30 SNPs from each lipid fraction (exposure). 
+
+
+```{r eval=FALSE}
+exposure_dat <- mv_extract_exposures(id_exposure)
+```
+
+Next, also extract those SNPs from the outcome.
+
+```{r eval=FALSE}
+outcome_dat <- extract_outcome_data(exposure_dat$SNP, id_outcome)
+```
+
+Once the data has been obtained, harmonise so that all are on the same reference allele.
+
+```{r eval=FALSE}
+mvdat <- mv_harmonise_data(exposure_dat, outcome_dat)
+```
+
+Finally, perform the multivariable IVW analysis
+
+```{r eval=FALSE}
+res <- mv_ivw(mvdat)
+```
+
+* * *
+
+## MR estimates when instruments are correlated
+
+In the examples shown so far it is assumed that instruments are independent (i.e. they are not in linkage disequilibrium, LD). This is to avoid 'double counting' effects. An alternative approach is to estimate the MR effects accounting for the correlation between variants.
+
+The TwoSampleMR package has not implemented this yet, but the [MendelianRandomization](https://cran.r-project.org/web/packages/MendelianRandomization/index.html) R package by Olena Yavorska and Stephen Burgess does have this functionality. We can use the TwoSampleMR package to extract, format and harmonise data, and then convert to the format required by the MendelianRandomization package. The MR-Base server has the individual level genetic data for ~500 Europeans in 1000 genomes data, and can obtain the LD matrix for a set of SNPs using these data. For example:
+
+
+```{r eval=FALSE}
+snplist <- c("rs234", "rs1205")
+ld_matrix(snplist)
+```
+
+Here `ld_matrix` returns the LD correlation values (not R^2) for each pair of variants present in the 1000 genomes data set.
+
+```{r eval=FALSE}
+dat <- harmonise_data(
+	exposure_dat = bmi_exp_dat, 
+	outcome_dat = chd_out_dat
+)
+```
+
+Convert to the `MRInput` format for the MendelianRandomization package:
+
+```{r eval=FALSE}
+dat2 <- dat_to_MRInput(dat)
+```
+
+This produces a list of `MRInput` objects that can be used with the MendelianRandomization functions, e.g.
+
+```{r eval=FALSE}
+MendelianRandomization::mr_ivw(dat2[[1]])
+```
+
+Alternatively, convert to the `MRInput` format but also obtaining the LD matrix for the instruments
+
+```{r eval=FALSE}
+dat2 <- dat_to_MRInput(dat, get_correlation=TRUE)
+MendelianRandomization::mr_ivw(dat2[[1]], correl=TRUE)
+```
 
 
 # References
