@@ -178,6 +178,7 @@ $(document).ready(function () {
 <li><a href="#directionality-test">Directionality test</a></li>
 <li><a href="#multivariable-mr">Multivariable MR</a></li>
 <li><a href="#mr-estimates-when-instruments-are-correlated">MR estimates when instruments are correlated</a></li>
+<li><a href="#mr-moe-using-a-mixture-of-experts-machine-learning-approach">MR-MoE: Using a mixture of experts machine learning approach</a></li>
 </ul></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -1333,6 +1334,44 @@ id_outcome &lt;-<span class="st"> </span><span class="dv">7</span></code></pre><
 <p>Alternatively, convert to the <code>MRInput</code> format but also obtaining the LD matrix for the instruments</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat2 &lt;-<span class="st"> </span><span class="kw">dat_to_MRInput</span>(dat, <span class="dt">get_correlation=</span><span class="ot">TRUE</span>)
 MendelianRandomization::<span class="kw">mr_ivw</span>(dat2[[<span class="dv">1</span>]], <span class="dt">correl=</span><span class="ot">TRUE</span>)</code></pre></div>
+<hr />
+</div>
+<div id="mr-moe-using-a-mixture-of-experts-machine-learning-approach" class="section level2">
+<h2>MR-MoE: Using a mixture of experts machine learning approach</h2>
+<p>We recently developed MR-MoE, a method to choose the most appropriate amongst several MR tests using a machine learning algorithm. Note that the method is still under review, but full details are described here: <a href="http://www.biorxiv.org/content/early/2017/08/23/173682">biorxiv.org/content/early/2017/08/23/173682</a>.</p>
+<p>MR-MoE operates by taking a set of harmonised data, inferring some characteristics about the dataset, and using those characteristics to predict how well each of the different MR methods will perform on the dataset, in terms of maximising power while minimising false discovery rates.</p>
+<p>In order to run the analysis you must download an RData object that contains the trained random forests that are used to predict the efficacy of each method. This can be downloaded from here:</p>
+<p><a href="https://www.dropbox.com/s/k0grrhh0ak8er7q/rf.rdata?dl=0">dropbox.com/s/k0grrhh0ak8er7q/rf.rdata?dl=0</a></p>
+<p><strong>Caution: this is a large file (approx 3Gb)</strong></p>
+<p>Once downloaded, read in the object and use the <code>mr_moe</code> function to perform the analysis. An example is shown here, estimating the causal effect of BMI on coronary heart disease:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Extact instruments for BMI</span>
+expsure_dat &lt;-<span class="st"> </span><span class="kw">extract_instruments</span>(<span class="dv">2</span>)
+
+<span class="co"># Get corresponding effects for CHD</span>
+outcome_dat &lt;-<span class="st"> </span><span class="kw">extract_outcome_data</span>(exposure_dat$SNP, <span class="dv">7</span>)
+
+<span class="co"># Harmonise</span>
+dat &lt;-<span class="st"> </span><span class="kw">harmonise_data</span>(exposure_dat, outcome_dat)
+
+<span class="co"># Load the downloaded RData object. This loads the rf object</span>
+<span class="kw">load</span>(<span class="st">&quot;rf.rdata&quot;</span>)
+
+<span class="co"># Perform MR-MoE</span>
+res &lt;-<span class="st"> </span><span class="kw">mr_moe</span>(dat, rf)</code></pre></div>
+<p>The function does the following:</p>
+<ol style="list-style-type: decimal">
+<li>Performs MR using each of 14 MR methods</li>
+<li>Applies Steiger filtering to remove SNPs that do not have substantially larger R^2 with the exposure than the outcome. Note - for binary traits ensure number of cases, number of controls, and allele frequencies are available for each SNP. For continuous traits make sure the p-value and sample size is available. The function infers if a trait is binary or continuous based on the units.exposure and units.outcome columns - binary traits must have those values set to ‘log odds’</li>
+<li>Performs the 14 MR methods again but using the subset of SNPs that survive Steiger filtering</li>
+<li>Generates meta data about the summary data to predict the most reliable of the 28 methods applied.</li>
+</ol>
+<p>For every exposure / outcome combination in the <code>dat</code> object, the MR-MoE method is applied. The function returns a list which is as long as the number of exposure / outcome combinations. In this case, it will be of length 1, containing the result for BMI on CHD.</p>
+<p>The result object itself is a list with the following elements:</p>
+<ul>
+<li><code>m1</code> is the set of MR estimates applied using all instruments</li>
+<li><code>m2</code> is the set of MR estimates applied to the SNPs after Steiger filtering</li>
+<li><code>m3</code> is a collection of all <code>m1</code> and <code>m2</code> MR estimates.</li>
+</ul>
 </div>
 </div>
 <div id="references" class="section level1">
