@@ -96,10 +96,14 @@ If you are using a desktop computer this will open a web browser, navigating to 
 
 If you are using a server which doesn't have a graphic user interface then it will provide a link and a code to enter into a browser to authenticate access.
 
-This function creates a new (hidden) file in your working directory called `.httr-oauth`. If you are using R in a working directory that does not have write permissions then this command will fail, please navigate to a directory that does have write permissions. 
+This function creates a new file in your working directory called `mrbase.oauth`. If you are using R in a working directory that does not have write permissions then this command will fail, please navigate to a directory that does have write permissions. 
 
-If you need to run this in a non-interactive script then you can generate the `.httr-oauth` file on an interactive computer, copy that file to the working directory that R will be running from, and then run a batch (non-interactive).
+If you need to run this in a non-interactive script then you can generate the `mrbase.oauth` file on an interactive computer, copy that file to the working directory that R will be running from, and then run a batch (non-interactive).
 
+
+> WARNING:
+> As of 2017-11-22 this behaviour has changed.
+> Previously the authentication file was a hidden file called `.httr-oauth`. Everything works exactly the same except this file is now called `mrbase.oauth`.
 
 * * * 
 
@@ -846,7 +850,13 @@ This function will create a separate report file for every exposure-outcome comb
 
 * * *
 
-## Directionality test
+## MR Steiger directionality test
+
+This is an implementation of the method described here:
+
+[Hemani G, Tilling K, Davey Smith G.<br/>
+**Orienting the causal relationship between imprecisely measured traits using GWAS summary data.**<br/>
+PLoS Genetics. 2017. 13(11).](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1007081)
 
 In MR it is assumed that the instruments influence the exposure first and then the outcome through the exposure. But sometimes this is difficult to evaluate, for example is a cis-acting SNP influencing gene expression levels or DNA methylation levels first? The causal direction between the hypothesised exposure and outcomes can be tested using the Steiger test [reference to go here]. For example:
 
