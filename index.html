@@ -1515,9 +1515,25 @@ effect allele frequency = 0.50</code></pre>
 <pre class="sourceCode r" id="cb136"><code class="sourceCode r"><div class="sourceLine" id="cb136-1" data-line-number="1">outcome_dat &lt;-<span class="st"> </span><span class="kw">extract_outcome_data</span>(exposure_dat<span class="op">$</span>SNP, id_outcome)</div></code></pre>
 <p>Once the data has been obtained, harmonise so that all are on the same reference allele.</p>
 <pre class="sourceCode r" id="cb137"><code class="sourceCode r"><div class="sourceLine" id="cb137-1" data-line-number="1">mvdat &lt;-<span class="st"> </span><span class="kw">mv_harmonise_data</span>(exposure_dat, outcome_dat)</div></code></pre>
-<p>Finally, perform the multivariable IVW analysis</p>
-<pre class="sourceCode r" id="cb138"><code class="sourceCode r"><div class="sourceLine" id="cb138-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">mv_ivw</span>(mvdat)</div></code></pre>
+<p>Finally, perform the multivariable MR analysis</p>
+<pre class="sourceCode r" id="cb138"><code class="sourceCode r"><div class="sourceLine" id="cb138-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">mv_multiple</span>(mvdat)</div></code></pre>
+<p>This generates a table of results.</p>
+<section id="note-about-mv-methods" class="level3">
+<h3>Note about MV methods</h3>
+<p>There are several different ways in which this analysis can be formulated. e.g. consider 3 exposures against one outcome, one could:</p>
+<ol type="1">
+<li>Fit all exposures together or fit one exposure at a time against the residuals of the outcome that has been adjusted for the other outcomes. The former is recommended by default in this R package through the <code>mv_multiple</code> function but the latter was how MV MR was originally described by Burgess et al 2015 and can be done with <code>mv_residual</code>.</li>
+<li>Fitting all instruments for all exposures (default) or only fitting the instruments for each exposure sequentially</li>
+<li>Forcing the slopes through the origin (default) or allowing an intercept term.</li>
+</ol>
+<p>With these three different parameters there are eight different ways to do MV analysis. We recommend the default settings as described above.</p>
+</section>
+<section id="note-about-visualisation" class="level3">
+<h3>Note about visualisation</h3>
+<p>Plots can be generated using the <code>plots=TRUE</code> argument for <code>mv_multiple</code> and <code>mv_residual</code>.</p>
+<p>The current plots being generated are not necessarily adequate because while they show the slope through the raw points, they do not demonstrate that the raw points might be effectively different between plots because they are conditional on the other exposures.</p>
 <hr />
+</section>
 </section>
 <section id="mr-estimates-when-instruments-are-correlated" class="level2">
 <h2>MR estimates when instruments are correlated</h2>

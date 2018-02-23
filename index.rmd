@@ -934,11 +934,30 @@ Once the data has been obtained, harmonise so that all are on the same reference
 mvdat <- mv_harmonise_data(exposure_dat, outcome_dat)
 ```
 
-Finally, perform the multivariable IVW analysis
+Finally, perform the multivariable MR analysis
 
 ```{r eval=FALSE}
-res <- mv_ivw(mvdat)
+res <- mv_multiple(mvdat)
 ```
+
+This generates a table of results.
+
+### Note about MV methods
+
+There are several different ways in which this analysis can be formulated. e.g. consider 3 exposures against one outcome, one could:
+
+1. Fit all exposures together or fit one exposure at a time against the residuals of the outcome that has been adjusted for the other outcomes. The former is recommended by default in this R package through the `mv_multiple` function but the latter was how MV MR was originally described by Burgess et al 2015 and can be done with `mv_residual`.
+2. Fitting all instruments for all exposures (default) or only fitting the instruments for each exposure sequentially
+3. Forcing the slopes through the origin (default) or allowing an intercept term.
+
+With these three different parameters there are eight different ways to do MV analysis. We recommend the default settings as described above.
+
+### Note about visualisation
+
+Plots can be generated using the `plots=TRUE` argument for `mv_multiple` and `mv_residual`. 
+
+The current plots being generated are not necessarily adequate because while they show the slope through the raw points, they do not demonstrate that the raw points might be effectively different between plots because they are conditional on the other exposures. 
+
 
 * * *
 
