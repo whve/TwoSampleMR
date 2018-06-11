@@ -648,7 +648,7 @@ By default, the `harmonise_data` function uses option 2, but this can be modifie
 
 ## Drop duplicate exposure-outcome summary sets
 
-After data harmonisation, users may find that their dataset contains duplicate exposure-outcome summary sets. This can arise, for example, when a GWAS consortium has released results from separate GWAS analyses for the same trait. We recommend that users prune their datasets so that only the exposure-outcome combination with the highested expected power is retained. This can be done by selecting the exposure-outcome summary set with the largest sample size for the outcome, using the power.prune function:
+After data harmonisation, users may find that their dataset contains duplicate exposure-outcome summary sets. This can arise, for example, when a GWAS consortium has released multiple results from separate GWAS analyses for the same trait. We recommend that users prune their datasets so that only the exposure-outcome combination with the highested expected power is retained. This can be done by selecting the exposure-outcome summary set with the largest sample size for the outcome, using the power.prune function:
 
 ```{r}
 dat<-power.prune(dat,method.size=T)
