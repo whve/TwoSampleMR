@@ -646,6 +646,22 @@ There are three options to harmonising the data.
 
 By default, the `harmonise_data` function uses option 2, but this can be modified using the `action` argument, e.g. `harmonise_data(exposure_dat, outcome_dat, action=3)`.
 
+## Drop duplicate exposure-outcome summary sets
+
+After data harmonisation, users may find that their dataset contains duplicate exposure-outcome summary sets. This can arise, for example, when a GWAS consortium has released results from separate GWAS analyses for the same trait. We recommend that users prune their datasets so that only the exposure-outcome combination with the highested expected power is retained. This can be done by selecting the exposure-outcome summary set with the largest sample size for the outcome, using the power.prune function:
+
+```{r}
+dat<-power.prune(dat,method.size=T)
+```
+
+This drops the duplicate summary sets with the smaller sample size for the outcome. Alternatively, users can exclude duplicates on the basis of instrument strength and sample size (but only if the SNP-outcome effects are log odds ratios and the SNP-exposure effects are in standard deviation units). This can be done by setting size.method to FALSE in the power.prune function: 
+
+```{r}
+dat<-power.prune(dat,method.size=F)
+```
+
+If size.method is set to FALSE, the method estimates power taking into account both sample size and instrument strength and assumes that the SNP-outcome effects are log odds ratios and the SNP-exposure effects are in standard deviation units. This alternative pruning procedure is useful, for example, when there is considerable variation in SNP coverage between duplicate outcome GWAS (e.g. because some studies have used targeted or fine mapping arrays). If there are a large number of SNPs available to instrument an exposure, the outcome GWAS with the better SNP coverage may provide better power than the outcome GWAS with the larger sample size. 
+
 * * * 
 
 # Perform MR
