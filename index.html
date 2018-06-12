@@ -383,6 +383,12 @@ $(document).ready(function () {
 <li><a href="#mr-estimates-when-instruments-are-correlated">MR estimates when instruments are correlated</a></li>
 <li><a href="#mr-moe-using-a-mixture-of-experts-machine-learning-approach">MR-MoE: Using a mixture of experts machine learning approach</a></li>
 </ul></li>
+<li><a href="#post-mr-results-management">Post MR results management</a><ul>
+<li><a href="#split-outcome-names">Split outcome names</a></li>
+<li><a href="#generate-odds-ratios-with-95-confidence-intervals">Generate odds ratios with 95% confidence intervals</a></li>
+<li><a href="#subset-on-method">Subset on method</a></li>
+<li><a href="#combine-all-results">Combine all results</a></li>
+</ul></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -1662,6 +1668,60 @@ effect allele frequency = 0.50</code></pre>
 <li><code>m2</code> is the set of MR estimates applied to the SNPs after Steiger filtering</li>
 <li><code>m3</code> is a collection of all <code>m1</code> and <code>m2</code> MR estimates.</li>
 </ul>
+<hr />
+</div>
+</div>
+<div id="post-mr-results-management" class="section level1">
+<h1>Post MR results management</h1>
+<p>The TwoSampleMR package also provides the following functions for managing or editing MR results.</p>
+<div id="split-outcome-names" class="section level2">
+<h2>Split outcome names</h2>
+<p>Outcome names in the output of mr() combine the original trait name and outcome trait ID.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="kw">head</span>(res)</a></code></pre></div>
+<pre><code>##   id.exposure id.outcome                        outcome exposure
+## 1      lnCcB5          7 Coronary heart disease || id:7      BMI
+## 2      lnCcB5          7 Coronary heart disease || id:7      BMI
+##                      method nsnp         b         se         pval
+## 1                  MR Egger   27 0.1138566 0.03292752 1.962323e-03
+## 2 Inverse variance weighted   27 0.1139168 0.01611170 1.544411e-12</code></pre>
+<p>These components can be split into separate columns:</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="kw">split_outcome</span>(res)</a></code></pre></div>
+<pre><code>##   id.exposure id.outcome                outcome exposure
+## 1      lnCcB5          7 Coronary heart disease      BMI
+## 2      lnCcB5          7 Coronary heart disease      BMI
+##                      method nsnp         b         se         pval
+## 1                  MR Egger   27 0.1138566 0.03292752 1.962323e-03
+## 2 Inverse variance weighted   27 0.1139168 0.01611170 1.544411e-12</code></pre>
+</div>
+<div id="generate-odds-ratios-with-95-confidence-intervals" class="section level2">
+<h2>Generate odds ratios with 95% confidence intervals</h2>
+<p>Users can convert log odds ratios into odds ratios with 95% confidence intervals using:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">generate_odds_ratios</span>(res)</a></code></pre></div>
+<pre><code>##   id.exposure id.outcome                        outcome exposure
+## 1      lnCcB5          7 Coronary heart disease || id:7      BMI
+## 2      lnCcB5          7 Coronary heart disease || id:7      BMI
+##                      method nsnp         b         se         pval
+## 1                  MR Egger   27 0.1138566 0.03292752 1.962323e-03
+## 2 Inverse variance weighted   27 0.1139168 0.01611170 1.544411e-12
+##        lo_ci     up_ci       or or_lci95 or_uci95
+## 1 0.04931869 0.1783946 1.120591 1.050555 1.195297
+## 2 0.08233791 0.1454958 1.120659 1.085823 1.156613</code></pre>
+</div>
+<div id="subset-on-method" class="section level2">
+<h2>Subset on method</h2>
+<p>It is sometimes useful to subset results on MR method, so that there is one unique result for each exposure-outcome combination:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">subset_on_method</span>(res)</a></code></pre></div>
+<pre><code>##   id.exposure id.outcome                        outcome exposure
+## 2      lnCcB5          7 Coronary heart disease || id:7      BMI
+##                      method nsnp         b        se         pval
+## 2 Inverse variance weighted   27 0.1139168 0.0161117 1.544411e-12</code></pre>
+<p>The default is to subset on the IVW method when &gt;1 SNP is available and to use the Wald ratio method when a single SNP is available. Users can specify which multi-SNP method to subset on.</p>
+</div>
+<div id="combine-all-results" class="section level2">
+<h2>Combine all results</h2>
+<p>Sometimes it is useful to combine all results and study level characterists into a single file. This can be done using:</p>
+<pre><code>combine_all_mrresults(res,het,pleiotropy,res_single)</code></pre>
+<p>This combines all results from mr(), mr_heterogeneity(), mr_pleiotropy() and mr_singlesnp() into a single data frame. It also merges the results with outcome study level characteristics from the available_outcomes() function. If desired, it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals).</p>
 </div>
 </div>
 <div id="references" class="section level1">

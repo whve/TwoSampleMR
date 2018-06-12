@@ -1066,6 +1066,53 @@ The result object itself is a list with the following elements:
 - `m3` is a collection of all `m1` and `m2` MR estimates.
 
 
+* * * 
+
+# Post MR results management 
+
+The TwoSampleMR package also provides the following functions for managing or editing MR results.
+
+## Split outcome names
+
+Outcome names in the output of mr() combine the original trait name and outcome trait ID. 
+
+```{r }
+head(res)
+```
+
+These components can be split into separate columns:
+
+```{r }
+split_outcome(res)
+```
+
+## Generate odds ratios with 95% confidence intervals
+
+Users can convert log odds ratios into odds ratios with 95% confidence intervals using: 
+
+```{r }
+generate_odds_ratios(res)
+```
+
+## Subset on method 
+
+It is sometimes useful to subset results on MR method, so that there is one unique result for each exposure-outcome combination: 
+
+```{r }
+subset_on_method(res)
+```
+
+The default is to subset on the IVW method when >1 SNP is available and to use the Wald ratio method when a single SNP is available. Users can specify which multi-SNP method to subset on. 
+
+## Combine all results 
+
+Sometimes it is useful to combine all results and study level characterists into a single file. This can be done using:
+
+```
+combine_all_mrresults(res,het,pleiotropy,res_single)
+```
+
+This combines all results from mr(), mr_heterogeneity(), mr_pleiotropy() and mr_singlesnp() into a single data frame. It also merges the results with outcome study level characteristics from the available_outcomes() function. If desired, it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals). 
 
 # References
 
