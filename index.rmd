@@ -654,13 +654,13 @@ After data harmonisation, users may find that their dataset contains duplicate e
 dat<-power.prune(dat,method.size=T)
 ```
 
-This drops the duplicate summary sets with the smaller sample size for the outcome. Alternatively, users can exclude duplicates on the basis of instrument strength and sample size (but only if the SNP-outcome effects are log odds ratios and the SNP-exposure effects are in standard deviation units). This can be done by setting size.method to FALSE in the power.prune function: 
+This drops the duplicate summary sets with the smaller sample size for the outcome. However, if there are a large number of SNPs available to instrument an exposure, the outcome GWAS with the better SNP coverage may provide better power than the outcome GWAS with the larger sample size. This can occur, for example, if the larger outcome GWAS has used a targeted or fine-mapping genotyping array. In such instances, it may be better to prune studies on the basis of the strength of the available instruments as well as sample size. This can be done by setting size.method to FALSE in the power.prune function: 
 
 ```{r}
 dat<-power.prune(dat,method.size=F)
 ```
 
-If size.method is set to FALSE, the method estimates power taking into account both sample size and instrument strength and assumes that the SNP-outcome effects are log odds ratios and the SNP-exposure effects are in standard deviation units. This alternative pruning procedure is useful, for example, when there is considerable variation in SNP coverage between duplicate outcome GWAS (e.g. because some studies have used targeted or fine mapping arrays). If there are a large number of SNPs available to instrument an exposure, the outcome GWAS with the better SNP coverage may provide better power than the outcome GWAS with the larger sample size. 
+This procedure estimates power for each summary set, taking into account sample size and the variance explained in the exposure by the available SNPs. It then drops the duplicate summary sets with the lower expected power. The method assumes, however, that the SNP-outcome effects are log odds ratios and SNP-exposure effects are in standard deviation units. 
 
 * * * 
 
