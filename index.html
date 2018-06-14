@@ -385,6 +385,7 @@ $(document).ready(function () {
 </ul></li>
 <li><a href="#post-mr-results-management">Post MR results management</a><ul>
 <li><a href="#split-outcome-names">Split outcome names</a></li>
+<li><a href="#split-exposure-names">Split exposure names</a></li>
 <li><a href="#generate-odds-ratios-with-95-confidence-intervals">Generate odds ratios with 95% confidence intervals</a></li>
 <li><a href="#subset-on-method">Subset on method</a></li>
 <li><a href="#combine-all-results">Combine all results</a></li>
@@ -1676,7 +1677,7 @@ effect allele frequency = 0.50</code></pre>
 <p>The TwoSampleMR package also provides the following functions for managing or editing MR results.</p>
 <div id="split-outcome-names" class="section level2">
 <h2>Split outcome names</h2>
-<p>Outcome names in the output of mr() combine the original trait name and outcome trait ID.</p>
+<p>The outcome column in the output of mr() combines the original outcome name with the outcome trait ID.</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="kw">head</span>(res)</a></code></pre></div>
 <pre><code>##   id.exposure id.outcome                        outcome exposure
 ## 1      lnCcB5          7 Coronary heart disease || id:7      BMI
@@ -1684,7 +1685,7 @@ effect allele frequency = 0.50</code></pre>
 ##                      method nsnp         b         se         pval
 ## 1                  MR Egger   27 0.1138566 0.03292752 1.962323e-03
 ## 2 Inverse variance weighted   27 0.1139168 0.01611170 1.544411e-12</code></pre>
-<p>These components can be split into separate columns:</p>
+<p>The outcome column can be split into separate columns for the id and outcome name using the split_outcome function:</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="kw">split_outcome</span>(res)</a></code></pre></div>
 <pre><code>##   id.exposure id.outcome                outcome exposure
 ## 1      lnCcB5          7 Coronary heart disease      BMI
@@ -1692,6 +1693,10 @@ effect allele frequency = 0.50</code></pre>
 ##                      method nsnp         b         se         pval
 ## 1                  MR Egger   27 0.1138566 0.03292752 1.962323e-03
 ## 2 Inverse variance weighted   27 0.1139168 0.01611170 1.544411e-12</code></pre>
+</div>
+<div id="split-exposure-names" class="section level2">
+<h2>Split exposure names</h2>
+<p>Similarly to the outcome column, the exposure column in the output of mr() combines the original exposure name with the exposure trait ID. This can be split into separate columns for the id and exposure name using the split_exposure function.</p>
 </div>
 <div id="generate-odds-ratios-with-95-confidence-intervals" class="section level2">
 <h2>Generate odds ratios with 95% confidence intervals</h2>
@@ -1719,9 +1724,216 @@ effect allele frequency = 0.50</code></pre>
 </div>
 <div id="combine-all-results" class="section level2">
 <h2>Combine all results</h2>
-<p>Sometimes it is useful to combine all results and study level characterists into a single file. This can be done using:</p>
-<pre><code>combine_all_mrresults(res,het,pleiotropy,res_single)</code></pre>
-<p>This combines all results from mr(), mr_heterogeneity(), mr_pleiotropy() and mr_singlesnp() into a single data frame. It also merges the results with outcome study level characteristics from the available_outcomes() function. If desired, it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals).</p>
+<p>It is often useful to combine all results and study level characterists into a single dataframe or table. This can be done using the combine_all_mrresults() function:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1">Res&lt;-<span class="kw">mr</span>(dat)</a></code></pre></div>
+<pre><code>## Analysing 'lnCcB5' on '7'</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">Het&lt;-<span class="kw">mr_heterogeneity</span>(dat)</a></code></pre></div>
+<pre><code>## Warning in mr_heterogeneity(dat): Prior to version 0.4.9 there was a bug
+## in the IVW Q statistic estimate, leading to a slight underestimation in
+## heterogeneity. This has now been resolved.</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">Plt&lt;-<span class="kw">mr_pleiotropy_test</span>(dat)</a>
+<a class="sourceLine" id="cb164-2" data-line-number="2">Sin&lt;-<span class="kw">mr_singlesnp</span>(dat)</a>
+<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="kw">combine_all_mrresults</span>(Res,Het,Plt,Sin,<span class="dt">ao_slc=</span>T,<span class="dt">Exp=</span>F,<span class="dt">split.exposure=</span>F,<span class="dt">split.outcome=</span>T)</a></code></pre></div>
+<pre><code>## Token cache file: mrbase.oauth</code></pre>
+<pre><code>##    id.outcome                    Method id.exposure                outcome
+## 1           7 Inverse variance weighted      lnCcB5 Coronary heart disease
+## 2           7                  MR Egger      lnCcB5 Coronary heart disease
+## 3           7               Simple mode      lnCcB5 Coronary heart disease
+## 4           7                Wald ratio      lnCcB5 Coronary heart disease
+## 5           7                Wald ratio      lnCcB5 Coronary heart disease
+## 6           7                Wald ratio      lnCcB5 Coronary heart disease
+## 7           7                Wald ratio      lnCcB5 Coronary heart disease
+## 8           7                Wald ratio      lnCcB5 Coronary heart disease
+## 9           7                Wald ratio      lnCcB5 Coronary heart disease
+## 10          7                Wald ratio      lnCcB5 Coronary heart disease
+## 11          7                Wald ratio      lnCcB5 Coronary heart disease
+## 12          7                Wald ratio      lnCcB5 Coronary heart disease
+## 13          7                Wald ratio      lnCcB5 Coronary heart disease
+## 14          7                Wald ratio      lnCcB5 Coronary heart disease
+## 15          7                Wald ratio      lnCcB5 Coronary heart disease
+## 16          7                Wald ratio      lnCcB5 Coronary heart disease
+## 17          7                Wald ratio      lnCcB5 Coronary heart disease
+## 18          7                Wald ratio      lnCcB5 Coronary heart disease
+## 19          7                Wald ratio      lnCcB5 Coronary heart disease
+## 20          7                Wald ratio      lnCcB5 Coronary heart disease
+## 21          7                Wald ratio      lnCcB5 Coronary heart disease
+## 22          7                Wald ratio      lnCcB5 Coronary heart disease
+## 23          7                Wald ratio      lnCcB5 Coronary heart disease
+## 24          7                Wald ratio      lnCcB5 Coronary heart disease
+## 25          7                Wald ratio      lnCcB5 Coronary heart disease
+## 26          7                Wald ratio      lnCcB5 Coronary heart disease
+## 27          7                Wald ratio      lnCcB5 Coronary heart disease
+## 28          7                Wald ratio      lnCcB5 Coronary heart disease
+## 29          7                Wald ratio      lnCcB5 Coronary heart disease
+## 30          7                Wald ratio      lnCcB5 Coronary heart disease
+## 31          7           Weighted median      lnCcB5 Coronary heart disease
+## 32          7             Weighted mode      lnCcB5 Coronary heart disease
+##    exposure nsnp            b         se         pval        Q Q_df
+## 1       BMI   27  0.113916838 0.01611170 1.544411e-12 39.68703   26
+## 2       BMI   27  0.113856621 0.03292752 1.962323e-03 39.68702   25
+## 3       BMI   27  0.075103310 0.04196506 8.516351e-02       NA   NA
+## 4       BMI    1  0.160623077 0.09240846 8.217808e-02       NA   NA
+## 5       BMI    1  0.377176471 0.12765706 3.130673e-03       NA   NA
+## 6       BMI    1  0.140057895 0.05720105 1.434447e-02       NA   NA
+## 7       BMI    1  0.170033333 0.05193611 1.060763e-03       NA   NA
+## 8       BMI    1  0.217227273 0.09313364 1.967832e-02       NA   NA
+## 9       BMI    1  0.076420513 0.02465846 1.940703e-03       NA   NA
+## 10      BMI    1 -0.047370588 0.08782882 5.896445e-01       NA   NA
+## 11      BMI    1 -0.194550000 0.12596500 1.224729e-01       NA   NA
+## 12      BMI    1  0.041933333 0.15620667 7.883547e-01       NA   NA
+## 13      BMI    1  0.260353333 0.08578667 2.406212e-03       NA   NA
+## 14      BMI    1  0.198700000 0.18209667 2.751943e-01       NA   NA
+## 15      BMI    1  0.058550000 0.09658100 5.443641e-01       NA   NA
+## 16      BMI    1  0.109253846 0.08202231 1.828597e-01       NA   NA
+## 17      BMI    1  0.075516667 0.16382833 6.448345e-01       NA   NA
+## 18      BMI    1  0.080015385 0.07568000 2.903812e-01       NA   NA
+## 19      BMI    1  0.117345161 0.03919355 2.753534e-03       NA   NA
+## 20      BMI    1  0.044733333 0.15153556 7.678409e-01       NA   NA
+## 21      BMI    1  0.034545455 0.05331636 5.170280e-01       NA   NA
+## 22      BMI    1  0.005916667 0.15897667 9.703118e-01       NA   NA
+## 23      BMI    1  0.186522222 0.12302667 1.294910e-01       NA   NA
+## 24      BMI    1  0.036766667 0.15530167 8.128558e-01       NA   NA
+## 25      BMI    1  0.219600000 0.11139800 4.868842e-02       NA   NA
+## 26      BMI    1  0.250947826 0.04565652 3.875592e-08       NA   NA
+## 27      BMI    1  0.139171429 0.06628643 3.576877e-02       NA   NA
+## 28      BMI    1  0.068125000 0.07895417 3.882241e-01       NA   NA
+## 29      BMI    1 -0.017985714 0.08753071 8.371980e-01       NA   NA
+## 30      BMI    1  0.194192308 0.08915000 2.938633e-02       NA   NA
+## 31      BMI   27  0.079404175 0.02060861 1.166980e-04       NA   NA
+## 32      BMI   27  0.088753773 0.02088914 2.437323e-04       NA   NA
+##        Q_pval samplesize        SNP author category        consortium
+## 1  0.04185786         NA       &lt;NA&gt; Nikpay  Disease CARDIoGRAMplusC4D
+## 2  0.03139634         NA       &lt;NA&gt; Nikpay  Disease CARDIoGRAMplusC4D
+## 3          NA         NA       &lt;NA&gt; Nikpay  Disease CARDIoGRAMplusC4D
+## 4          NA     184305 rs10150332 Nikpay  Disease CARDIoGRAMplusC4D
+## 5          NA     184305 rs11847697 Nikpay  Disease CARDIoGRAMplusC4D
+## 6          NA     184305 rs10767664 Nikpay  Disease CARDIoGRAMplusC4D
+## 7          NA     184305 rs10938397 Nikpay  Disease CARDIoGRAMplusC4D
+## 8          NA     184305 rs10968576 Nikpay  Disease CARDIoGRAMplusC4D
+## 9          NA     184305  rs1558902 Nikpay  Disease CARDIoGRAMplusC4D
+## 10         NA     184305 rs12444979 Nikpay  Disease CARDIoGRAMplusC4D
+## 11         NA     184305 rs13078807 Nikpay  Disease CARDIoGRAMplusC4D
+## 12         NA     184305  rs1555543 Nikpay  Disease CARDIoGRAMplusC4D
+## 13         NA     184305  rs2287019 Nikpay  Disease CARDIoGRAMplusC4D
+## 14         NA     184305   rs206936 Nikpay  Disease CARDIoGRAMplusC4D
+## 15         NA     184305  rs2112347 Nikpay  Disease CARDIoGRAMplusC4D
+## 16         NA     184305  rs2241423 Nikpay  Disease CARDIoGRAMplusC4D
+## 17         NA     184305    rs29941 Nikpay  Disease CARDIoGRAMplusC4D
+## 18         NA     184305  rs2815752 Nikpay  Disease CARDIoGRAMplusC4D
+## 19         NA     184305  rs2867125 Nikpay  Disease CARDIoGRAMplusC4D
+## 20         NA     184305  rs2890652 Nikpay  Disease CARDIoGRAMplusC4D
+## 21         NA     184305   rs543874 Nikpay  Disease CARDIoGRAMplusC4D
+## 22         NA     184305  rs3817334 Nikpay  Disease CARDIoGRAMplusC4D
+## 23         NA     184305  rs4771122 Nikpay  Disease CARDIoGRAMplusC4D
+## 24         NA     184305  rs4929949 Nikpay  Disease CARDIoGRAMplusC4D
+## 25         NA     184305   rs887912 Nikpay  Disease CARDIoGRAMplusC4D
+## 26         NA     184305   rs571312 Nikpay  Disease CARDIoGRAMplusC4D
+## 27         NA     184305   rs713586 Nikpay  Disease CARDIoGRAMplusC4D
+## 28         NA     184305  rs7138803 Nikpay  Disease CARDIoGRAMplusC4D
+## 29         NA     184305  rs9816226 Nikpay  Disease CARDIoGRAMplusC4D
+## 30         NA     184305   rs987237 Nikpay  Disease CARDIoGRAMplusC4D
+## 31         NA         NA       &lt;NA&gt; Nikpay  Disease CARDIoGRAMplusC4D
+## 32         NA         NA       &lt;NA&gt; Nikpay  Disease CARDIoGRAMplusC4D
+##    ncase ncontrol nsnps.outcome.array     pmid population sample_size
+## 1  60801   123504             9455779 26343387      Mixed      184305
+## 2  60801   123504             9455779 26343387      Mixed      184305
+## 3  60801   123504             9455779 26343387      Mixed      184305
+## 4  60801   123504             9455779 26343387      Mixed      184305
+## 5  60801   123504             9455779 26343387      Mixed      184305
+## 6  60801   123504             9455779 26343387      Mixed      184305
+## 7  60801   123504             9455779 26343387      Mixed      184305
+## 8  60801   123504             9455779 26343387      Mixed      184305
+## 9  60801   123504             9455779 26343387      Mixed      184305
+## 10 60801   123504             9455779 26343387      Mixed      184305
+## 11 60801   123504             9455779 26343387      Mixed      184305
+## 12 60801   123504             9455779 26343387      Mixed      184305
+## 13 60801   123504             9455779 26343387      Mixed      184305
+## 14 60801   123504             9455779 26343387      Mixed      184305
+## 15 60801   123504             9455779 26343387      Mixed      184305
+## 16 60801   123504             9455779 26343387      Mixed      184305
+## 17 60801   123504             9455779 26343387      Mixed      184305
+## 18 60801   123504             9455779 26343387      Mixed      184305
+## 19 60801   123504             9455779 26343387      Mixed      184305
+## 20 60801   123504             9455779 26343387      Mixed      184305
+## 21 60801   123504             9455779 26343387      Mixed      184305
+## 22 60801   123504             9455779 26343387      Mixed      184305
+## 23 60801   123504             9455779 26343387      Mixed      184305
+## 24 60801   123504             9455779 26343387      Mixed      184305
+## 25 60801   123504             9455779 26343387      Mixed      184305
+## 26 60801   123504             9455779 26343387      Mixed      184305
+## 27 60801   123504             9455779 26343387      Mixed      184305
+## 28 60801   123504             9455779 26343387      Mixed      184305
+## 29 60801   123504             9455779 26343387      Mixed      184305
+## 30 60801   123504             9455779 26343387      Mixed      184305
+## 31 60801   123504             9455779 26343387      Mixed      184305
+## 32 60801   123504             9455779 26343387      Mixed      184305
+##                  sex    subcategory                  trait year
+## 1  Males and females Cardiovascular Coronary heart disease 2015
+## 2  Males and females Cardiovascular Coronary heart disease 2015
+## 3  Males and females Cardiovascular Coronary heart disease 2015
+## 4  Males and females Cardiovascular Coronary heart disease 2015
+## 5  Males and females Cardiovascular Coronary heart disease 2015
+## 6  Males and females Cardiovascular Coronary heart disease 2015
+## 7  Males and females Cardiovascular Coronary heart disease 2015
+## 8  Males and females Cardiovascular Coronary heart disease 2015
+## 9  Males and females Cardiovascular Coronary heart disease 2015
+## 10 Males and females Cardiovascular Coronary heart disease 2015
+## 11 Males and females Cardiovascular Coronary heart disease 2015
+## 12 Males and females Cardiovascular Coronary heart disease 2015
+## 13 Males and females Cardiovascular Coronary heart disease 2015
+## 14 Males and females Cardiovascular Coronary heart disease 2015
+## 15 Males and females Cardiovascular Coronary heart disease 2015
+## 16 Males and females Cardiovascular Coronary heart disease 2015
+## 17 Males and females Cardiovascular Coronary heart disease 2015
+## 18 Males and females Cardiovascular Coronary heart disease 2015
+## 19 Males and females Cardiovascular Coronary heart disease 2015
+## 20 Males and females Cardiovascular Coronary heart disease 2015
+## 21 Males and females Cardiovascular Coronary heart disease 2015
+## 22 Males and females Cardiovascular Coronary heart disease 2015
+## 23 Males and females Cardiovascular Coronary heart disease 2015
+## 24 Males and females Cardiovascular Coronary heart disease 2015
+## 25 Males and females Cardiovascular Coronary heart disease 2015
+## 26 Males and females Cardiovascular Coronary heart disease 2015
+## 27 Males and females Cardiovascular Coronary heart disease 2015
+## 28 Males and females Cardiovascular Coronary heart disease 2015
+## 29 Males and females Cardiovascular Coronary heart disease 2015
+## 30 Males and females Cardiovascular Coronary heart disease 2015
+## 31 Males and females Cardiovascular Coronary heart disease 2015
+## 32 Males and females Cardiovascular Coronary heart disease 2015
+##       intercept intercept_se intercept_pval
+## 1            NA           NA             NA
+## 2  1.110681e-05  0.005263163       0.998333
+## 3            NA           NA             NA
+## 4            NA           NA             NA
+## 5            NA           NA             NA
+## 6            NA           NA             NA
+## 7            NA           NA             NA
+## 8            NA           NA             NA
+## 9            NA           NA             NA
+## 10           NA           NA             NA
+## 11           NA           NA             NA
+## 12           NA           NA             NA
+## 13           NA           NA             NA
+## 14           NA           NA             NA
+## 15           NA           NA             NA
+## 16           NA           NA             NA
+## 17           NA           NA             NA
+## 18           NA           NA             NA
+## 19           NA           NA             NA
+## 20           NA           NA             NA
+## 21           NA           NA             NA
+## 22           NA           NA             NA
+## 23           NA           NA             NA
+## 24           NA           NA             NA
+## 25           NA           NA             NA
+## 26           NA           NA             NA
+## 27           NA           NA             NA
+## 28           NA           NA             NA
+## 29           NA           NA             NA
+## 30           NA           NA             NA
+## 31           NA           NA             NA
+## 32           NA           NA             NA</code></pre>
+<p>This combines all results from mr(), mr_heterogeneity(), mr_pleiotropy_test() and mr_singlesnp() into a single dataframe. It also merges the results with outcome study level characteristics from the available_outcomes() function, including sample size characteristics. If requested, it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals). The exposure and outcome columns from the output from mr() contain both the trait names and trait ids. The combine_all_mrresults() function splits these into separate columns by default.</p>
 </div>
 </div>
 <div id="references" class="section level1">
