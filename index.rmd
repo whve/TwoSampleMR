@@ -1074,16 +1074,24 @@ The TwoSampleMR package also provides the following functions for managing or ed
 
 ## Split outcome names
 
-Outcome names in the output of mr() combine the original trait name and outcome trait ID. 
+The outcome column in the output of mr() combines the original outcome name with the outcome trait ID. 
 
 ```{r }
 head(res)
 ```
 
-These components can be split into separate columns:
+The outcome column can be split into separate columns for the id and outcome name using the split_outcome function:
 
 ```{r }
 split_outcome(res)
+```
+
+## Split exposure names
+
+Similarly to the outcome column, the exposure column in the output of mr() combines the original exposure name with the exposure trait ID. This can be split into separate columns for the id and exposure name using the split_exposure function:
+
+```{r }
+split_exposure(res)
 ```
 
 ## Generate odds ratios with 95% confidence intervals
@@ -1106,13 +1114,17 @@ The default is to subset on the IVW method when >1 SNP is available and to use t
 
 ## Combine all results 
 
-Sometimes it is useful to combine all results and study level characterists into a single file. This can be done using:
+It is often useful to combine all results and study level characterists into a single dataframe or table.  This can be done using the combine_all_mrresults() function:
 
-```
-combine_all_mrresults(res,het,pleiotropy,res_single)
+```{r }
+Res<-mr(dat)
+Het<-mr_heterogeneity(dat)
+Plt<-mr_pleiotropy_test(dat)
+Sin<-mr_singlesnp(dat)
+combine_all_mrresults(Res,Het,Plt,Sin,ao_slc=T,Exp=F,split.exposure=T,split.outcome=T)
 ```
 
-This combines all results from mr(), mr_heterogeneity(), mr_pleiotropy() and mr_singlesnp() into a single data frame. It also merges the results with outcome study level characteristics from the available_outcomes() function. If desired, it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals). 
+This combines all results from mr(), mr_heterogeneity(), mr_pleiotropy_test() and mr_singlesnp() into a single dataframe. It also merges the results with outcome study level characteristics from the available_outcomes() function, including sample size characteristics. If requested, it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals). The exposure and outcome columns from the output from mr() contain both the trait names and trait ids. The combine_all_mrresults() function splits these into separate columns by default. 
 
 # References
 
