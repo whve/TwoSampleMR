@@ -14,6 +14,7 @@ knitr::opts_chunk$set(eval=TRUE, cache=TRUE)
 suppressWarnings(suppressPackageStartupMessages(library(TwoSampleMR)))
 suppressWarnings(suppressPackageStartupMessages(library(MRInstruments)))
 suppressWarnings(suppressPackageStartupMessages(library(knitr)))
+
 ```
 
 * * * 
@@ -842,12 +843,110 @@ Specify the test to use e.g. `mr_leaveoneout(dat, method = mr_egger_regression)`
 ### Funnel plot
 
 Asymmetry in a funnel plot is useful for gauging the reliability of a particular MR analysis. Funnel plots can be produced using the single SNP results as follows:
-
+howzit
 ```{r }
 res_single <- mr_singlesnp(dat)
 p4 <- mr_funnel_plot(res_single)
 p4[[1]]
 ```
+
+## 1-to-many forest plot
+
+A 1-to-many MR analysis interrogates the effect of a single exposure on multiple outcomes or multiple exposures on a single outcome. The results of this analysis can be visualised using the 1-to-many forest plot, with or without stratification on a categorical variable. The function assumes the results are already in the right order for plotting. As such, users are advised to sort their results according to how they would like them to appear in the plot. Users can use their own code to do this or they can use the Sort.1.to.many() function. 
+
+### Step 1: generate 1-to-many MR results  
+```{r }
+exp_dat <- extract_instruments(outcomes=c(2,100,1032,104,1,72,999))
+table(exp_dat$exposure)
+chd_out_dat <- extract_outcome_data(
+	snps = exp_dat$SNP,
+	outcomes = 7
+)
+
+dat2 <- harmonise_data(
+	exposure_dat = exp_dat, 
+	outcome_dat = chd_out_dat
+)
+res<-mr(dat2)
+```
+
+### Step 2. Make the 1-to-many forest plot
+
+#### Example 1. Effect of multiple risk factors on coronary heart disease
+
+In this example we wish to plot results from an MR analysis of the effect of multiple risk factors on coronary heart disease, with results sorted by decreasing effect size (largest effect at the top of the plot) and with one MR method for each unique exposure-outcome combination.
+
+```{r }
+res<-subset_on_method(res) #default is to subset on either the IVW method (>1 instrumental SNP) or Wald ratio method (1 instrumental SNP). 
+res<-Sort.1.to.many(res,b="b",Sort.action=4) #this sorts results by decreasing effect size (largest effect at top of the plot)
+res<-split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column 
+
+forest_plot_1_to_many(res,b="b",se="se",
+	exponentiate=T,ao_slc=F,Lo=0.3,Up=2.5,
+	TraitM="exposure",width1=1.2,by=NULL,
+	trans="log2",xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
+
+
+```
+
+#### Example 2. Group results by MR method 
+
+In this next example we plot the results from an MR analysis of the effect of multiple risk factors on coronary heart disease, with results grouped by MR method. We also want the result for the IVW method to be given priority and to go above the other methods. We also want the trait with the largest IVW effect size to go the top of the plot. 
+
+```{r }
+res<-mr(dat2)
+res<-Sort.1.to.many(res,Group="method",Sort.action=3,Priority="Inverse variance weighted")
+res<-split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column 
+
+forest_plot_1_to_many(res,b="b",se="se",
+	exponentiate=T,trans="log2",ao_slc=F,Lo=0.03,
+	Up=22,width1=1.7,by="exposure",TraitM="method",
+	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
+
+```
+
+To keep the plot legible it's advisable not to plot too many results in a single plot (as can be seen in the above example the results for waist circumference and hip circumference can't be seen). In my own workflow I divide such results across two separate plots: 
+
+```{r }
+res1<-res[1:10,]
+res2<-res[11:22,]
+
+forest_plot_1_to_many(res1,b="b",se="se",
+	exponentiate=T,trans="log2",ao_slc=F,Lo=0.03,
+	Up=22,width1=1.7,by="exposure",TraitM="method",
+	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
+
+forest_plot_1_to_many(res2,b="b",se="se",
+	exponentiate=T,trans="log2",ao_slc=F,Lo=0.03,
+	Up=22,width1=1.7,by="exposure",TraitM="method",
+	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
+
+```
+
+You can then join the above plots together in powerpoint or some other program. 
+
+Somewhat unintuitvely we set the TraitM argument to "method" in the above example. This is because we are stratifying the results on trait names (specified in the "by" argument). Normally the row labels would correspond to trait names but in this example we want the row names to correspond to the MR method. 
+
+#### Example 3. Stratify results on a grouping variable
+
+In this next example we plot the same results as above but with results stratified by a grouping variable. We also select one MR method for each unique exposure-outcome combination and sort the results by decreasing effect size within each group (i.e. largest effect at the top). 
+
+```{r }
+res<-mr(dat2) 
+res<-split_exposure(res)
+res<-subset_on_method(res)
+res$subcategory[res$exposure %in% c("Adiponectin","Hip circumference","Waist circumference")]<-"Group 1"
+res$subcategory[is.na(res$subcategory)]<-"Group 2"
+res<-Sort.1.to.many(res,Sort.action=1,Group="subcategory")
+forest_plot_1_to_many(res,b="b",se="se",
+	exponentiate=T,trans="log2",ao_slc=F,Lo=0.3,
+	Up=2.5,TraitM="Trait",width1=1.2,by="subcategory",
+	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
+
+```
+
+In the above example we made up an arbitrary grouping variable called "subcategory" with values "Group 1" and "Group 2". Typically, however, the grouping variable might correspond to something like a trait ontology (e.g. anthropometric and glycemic traits) or study design (e.g. MR and observational studies). 
+
 
 * * * 
 
@@ -913,7 +1012,8 @@ mr_steiger(
 	n_exp = dat$samplesize.exposure, 
 	n_out = dat$samplesize.outcome, 
 	r_xxo = 1, 
-	r_yyo = 1
+	r_yyo = 1,
+	r_exp=0
 )
 
 ```
