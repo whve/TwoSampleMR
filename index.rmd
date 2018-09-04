@@ -896,7 +896,9 @@ res$pval<-formatC(res$pval, format = "e", digits = 2)
 forest_plot_1_to_many(res,b="b",se="se",
     exponentiate=T,ao_slc=F,Lo=0.3,Up=2.5,
     TraitM="exposure",Col1_title="Risk factor",Col1_width=1.7,by=NULL,
-    trans="log2",xlab="OR for CHD per SD increase in risk factor (95% confidence interval)",Addcols=c("nsnp","pval"),Addcol_widths=c(1.0,0.8),Addcol_titles=c("No. SNPs","P-val"))
+    trans="log2",xlab="OR for CHD per SD increase in risk factor (95% confidence interval)",
+    Addcols=c("nsnp","pval"),Addcol_widths=c(1.0,0.8),
+    Addcol_titles=c("No. SNPs","P-val"))
 ```
 
 In my own workflow I prefer to to keep the plot free of axis and column titles:
@@ -905,7 +907,8 @@ In my own workflow I prefer to to keep the plot free of axis and column titles:
 forest_plot_1_to_many(res,b="b",se="se",
     exponentiate=T,ao_slc=F,Lo=0.3,Up=2.5,
     TraitM="exposure",Col1_width=1.7,by=NULL,
-    trans="log2",xlab="",Addcols=c("nsnp","pval"),Addcol_widths=c(1.0,0.8),Addcol_titles=c("",""))
+    trans="log2",xlab="",Addcols=c("nsnp","pval"),
+    Addcol_widths=c(1.0,0.8),Addcol_titles=c("",""))
 ```
 
 I would then import the above plot into another program like powerpoint and add the axis/column titles there. 
