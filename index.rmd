@@ -878,12 +878,12 @@ In this example we wish to plot results from an MR analysis of the effect of mul
 
 ```{r }
 res<-subset_on_method(res) #default is to subset on either the IVW method (>1 instrumental SNP) or Wald ratio method (1 instrumental SNP). 
-res<-Sort.1.to.many(res,b="b",Sort.action=4) #this sorts results by decreasing effect size (largest effect at top of the plot)
+res<-sort_1_to_many(res,b="b",sort_action=4) #this sorts results by decreasing effect size (largest effect at top of the plot)
 res<-split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column 
 
 forest_plot_1_to_many(res,b="b",se="se",
-	exponentiate=T,ao_slc=F,Lo=0.3,Up=2.5,
-	TraitM="exposure",Col1_width=1.2,by=NULL,
+	exponentiate=T,ao_slc=F,lo=0.3,up=2.5,
+	TraitM="exposure",col1_width=1.2,by=NULL,
 	trans="log2",xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
 
 
@@ -894,21 +894,21 @@ It is also possible to add additional columns and column titles:
 ```{r }
 res$pval<-formatC(res$pval, format = "e", digits = 2)
 forest_plot_1_to_many(res,b="b",se="se",
-    exponentiate=T,ao_slc=F,Lo=0.3,Up=2.5,
-    TraitM="exposure",Col1_title="Risk factor",Col1_width=1.7,by=NULL,
+    exponentiate=T,ao_slc=F,lo=0.3,up=2.5,
+    TraitM="exposure",col1_title="Risk factor",col1_width=1.7,by=NULL,
     trans="log2",xlab="OR for CHD per SD increase in risk factor (95% confidence interval)",
-    Addcols=c("nsnp","pval"),Addcol_widths=c(1.0,0.8),
-    Addcol_titles=c("No. SNPs","P-val"))
+    addcols=c("nsnp","pval"),addcol_widths=c(1.0,0.8),
+    addcol_titles=c("No. SNPs","P-val"))
 ```
 
 In my own workflow I prefer to to keep the plot free of axis and column titles:
 
 ```{r }
 forest_plot_1_to_many(res,b="b",se="se",
-    exponentiate=T,ao_slc=F,Lo=0.3,Up=2.5,
-    TraitM="exposure",Col1_width=1.7,by=NULL,
-    trans="log2",xlab="",Addcols=c("nsnp","pval"),
-    Addcol_widths=c(1.0,0.8),Addcol_titles=c("",""))
+    exponentiate=T,ao_slc=F,lo=0.3,up=2.5,
+    TraitM="exposure",col1_width=1.7,by=NULL,
+    trans="log2",xlab="",addcols=c("nsnp","pval"),
+    addcol_widths=c(1.0,0.8),addcol_titles=c("",""))
 ```
 
 I would then import the above plot into another program like powerpoint and add the axis/column titles there. 
@@ -919,12 +919,12 @@ In this next example we plot the results from an MR analysis of the effect of mu
 
 ```{r }
 res<-mr(dat2)
-res<-Sort.1.to.many(res,Group="method",Sort.action=3,Priority="Inverse variance weighted")
+res<-sort_1_to_many(res,group="method",sort_action=3,priority="Inverse variance weighted")
 res<-split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column 
 
 forest_plot_1_to_many(res,b="b",se="se",
-	exponentiate=T,trans="log2",ao_slc=F,Lo=0.03,
-	Up=22,Col1_width=1.7,by="exposure",TraitM="method",
+	exponentiate=T,trans="log2",ao_slc=F,lo=0.03,
+	up=22,col1_width=1.7,by="exposure",TraitM="method",
 	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
 
 ```
@@ -936,13 +936,13 @@ res1<-res[1:10,]
 res2<-res[11:22,]
 
 forest_plot_1_to_many(res1,b="b",se="se",
-	exponentiate=T,trans="log2",ao_slc=F,Lo=0.03,
-	Up=22,Col1_width=1.7,by="exposure",TraitM="method",
+	exponentiate=T,trans="log2",ao_slc=F,lo=0.03,
+	up=22,col1_width=1.7,by="exposure",TraitM="method",
 	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
 
 forest_plot_1_to_many(res2,b="b",se="se",
-	exponentiate=T,trans="log2",ao_slc=F,Lo=0.03,
-	Up=22,Col1_width=1.7,by="exposure",TraitM="method",
+	exponentiate=T,trans="log2",ao_slc=F,lo=0.03,
+	up=22,col1_width=1.7,by="exposure",TraitM="method",
 	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
 
 ```
@@ -961,10 +961,10 @@ res<-split_exposure(res)
 res<-subset_on_method(res)
 res$subcategory[res$exposure %in% c("Adiponectin","Hip circumference","Waist circumference")]<-"Group 1"
 res$subcategory[is.na(res$subcategory)]<-"Group 2"
-res<-Sort.1.to.many(res,Sort.action=1,Group="subcategory")
+res<-sort_1_to_many(res,sort_action=1,group="subcategory")
 forest_plot_1_to_many(res,b="b",se="se",
-	exponentiate=T,trans="log2",ao_slc=F,Lo=0.3,
-	Up=2.5,TraitM="Trait",Col1_width=1.2,by="subcategory",
+	exponentiate=T,trans="log2",ao_slc=F,lo=0.3,
+	up=2.5,TraitM="Trait",col1_width=1.2,by="subcategory",
 	xlab="OR for CHD per SD increase in risk factor (95% confidence interval)")
 
 ```
@@ -1029,7 +1029,7 @@ This test is, like many others, liable to give inaccurate causal directions unde
 
 These tests are obtained using:
 
-<!-- ```{r, warnings=FALSE}
+```{r, warnings=FALSE}
 mr_steiger(
 	p_exp = dat$pval.exposure, 
 	p_out = dat$pval.outcome, 
@@ -1040,7 +1040,7 @@ mr_steiger(
 	r_exp=0
 )
 
-``` -->
+```
 
 * * *
 
