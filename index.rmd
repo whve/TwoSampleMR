@@ -998,7 +998,7 @@ res<-sort_1_to_many(res,b="b",sort_action=4) #this sorts results by decreasing e
 
 ```
 
-MR results for 103 diseases can be difficult to visualise in a single-column forest plot. In my own workflow I would split these across two plots and then join them together in a separate program, such as powerpoint, and do further refinements there. I typically save my plots using the pdf() graphics device. In this particular example the disease labels probably require some cleaning up (some are a bit long) or alternatively the column text size could be made smaller. 
+MR results for 103 diseases can be difficult to visualise in a single-column forest plot. In my own workflow I would split these across two plots and then join them together in a separate program, such as powerpoint, and do further refinements there. I typically save my plots using the pdf() graphics device. In this particular example the disease labels probably require some cleaning up (some are a bit long) or alternatively the column text size could be made smaller. It is also possible to change the colour of the plot and the shape of the point estimates. Type ?forest_plot_1_to_many for further details.
 
 ```{r cache=TRUE, warning=FALSE,fig.height=10}
 
@@ -1083,7 +1083,8 @@ This test is, like many others, liable to give inaccurate causal directions unde
 
 These tests are obtained using:
 
-```{r, warnings=FALSE}
+```{r eval=FALSE, warnings=FALSE}
+
 mr_steiger(
 	p_exp = dat$pval.exposure, 
 	p_out = dat$pval.outcome, 
