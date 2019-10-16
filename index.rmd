@@ -863,8 +863,8 @@ p4[[1]]
 A 1-to-many MR analysis interrogates the effect of a single exposure on multiple outcomes or multiple exposures on a single outcome. The results of this analysis can be visualised using the 1-to-many forest plot, with or without stratification on a categorical variable. From a visual point of view, the function works best for 50 or fewer results and is not really designed to handle more than a 100 results. If your number of results is much greater than 50, it may be better to split these across two separate plots. For example, if you have 100 sets of results you could divide these equally across two plots and then combine the two plots together in another programme like powerpoint. The function assumes the results are already in the right order for plotting. As such, users are advised to sort their results according to how they would like them to appear in the plot. Users can use their own code to do this or they can use the sort.1.to.many() function.  
 
 ### Step 1: generate 1-to-many MR results  
-```{r cache=FALSE,warning=FALSE}
-exp_dat <- extract_instruments(outcomes=c(2,100,1032,104,1,72,999))
+```{r cache=FALSE,warning=FALSE,eval=FALSE}
+exp_dat <- extract_instruments(outcomes=c(2,100,104,1,72,999))
 table(exp_dat$exposure)
 chd_out_dat <- extract_outcome_data(
 	snps = exp_dat$SNP,
@@ -884,7 +884,7 @@ res<-mr(dat2)
 
 In this example we wish to plot results from an MR analysis of the effect of multiple exposures on coronary heart disease, with results sorted by decreasing effect size (largest effect at the top of the plot) and with one MR method for each unique exposure-outcome combination. We will also make the size of each point estimate proportional to its inverse variance. This is a useful way to draw attention towards the most reliable results and away from results with very wide confidence intervals. To specify the size of the point estimate, set the weight argument to the name of the column in the data with the weight information.
 
-```{r cache=FALSE, warning=FALSE}
+```{r cache=FALSE, warning=FALSE,eval=FALSE}
 res<-subset_on_method(res) #default is to subset on either the IVW method (>1 instrumental SNP) or Wald ratio method (1 instrumental SNP). 
 res<-sort_1_to_many(res,b="b",sort_action=4) #this sorts results by decreasing effect size (largest effect at top of the plot)
 res<-split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column 
@@ -903,7 +903,7 @@ forest_plot_1_to_many(res,b="b",se="se",
 
 It is also possible to add additional columns and column titles and to choose the size of the text in the columns: 
 
-```{r cache=FALSE, warning=FALSE, message=FALSE}
+```{r cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 res$pval<-formatC(res$pval, format = "e", digits = 2)
 forest_plot_1_to_many(res,b="b",se="se",
     exponentiate=T,ao_slc=F,lo=0.3,up=2.5,
@@ -921,7 +921,7 @@ forest_plot_1_to_many(res,b="b",se="se",
 
 In my own workflow I prefer to to keep the plot free of axis and column titles and to add them separately in a program like powerpoint:
 
-```{r cache=FALSE, warning=FALSE,message=FALSE}
+```{r cache=FALSE, warning=FALSE,message=FALSE, eval=FALSE}
 forest_plot_1_to_many(res,b="b",se="se",
     exponentiate=T,ao_slc=F,lo=0.3,up=3.0,
     TraitM="exposure",col1_width=2.0,by=NULL,
@@ -937,7 +937,7 @@ forest_plot_1_to_many(res,b="b",se="se",
 In this next example we plot the results from an analysis of the effect of multiple exposures on coronary heart disease using multiple methods, with results grouped by exposure. We also want the result for the IVW method to be given priority and to go above the other methods. We also want the exposure with the largest IVW effect size to go the top of the plot. We also set the TraitM argument to the column describing the MR method. This is because we are grouping the results on the exposures. Normally the row labels would correspond to the exposures but in this example we want the row names to correspond to the MR method. 
 
 
-```{r cache=FALSE, warning=FALSE,fig.height=10}
+```{r cache=FALSE, warning=FALSE,fig.height=10, eval=FALSE}
 res<-mr(dat2)
 res<-split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column 
 
@@ -956,7 +956,7 @@ forest_plot_1_to_many(res,b="b",se="se",
 
 In this next example we plot the same results as above but with results stratified by a grouping variable. We also select one MR method for each unique exposure-outcome combination and sort the results by decreasing effect size within each group (i.e. largest effect at the top). 
 
-```{r cache=FALSE, warning=FALSE}
+```{r cache=FALSE, warning=FALSE, eval=FALSE}
 
 res<-mr(dat2) 
 res<-split_exposure(res)
@@ -981,7 +981,7 @@ In the above example we made up an arbitrary grouping variable called "subcatego
 
 The plot function works best with 50 or fewer rows and is not really designed to handle more than a 100. Visualising a single-column forest plot with 100 results is also quite difficult. If your number of results is much greater than 50, it is advisable to split the results across two different plots. In the example below we select BMI as the exposure and test this against 103 diseases in MR-Base:
 
-```{r cache=TRUE, eval=TRUE, echo=TRUE, warning=FALSE,message=FALSE}
+```{r cache=TRUE, eval=TRUE, echo=TRUE, warning=FALSE,message=FALSE, eval=FALSE}
 
 exp_dat <- extract_instruments(outcomes=2)  #extract instruments for BMI
 ao<-available_outcomes()
@@ -1233,14 +1233,19 @@ dat <- harmonise_data(exposure_dat, outcome_dat)
 # Load the downloaded RData object. This loads the rf object
 load("rf.rdata")
 
-# Perform MR-MoE
-res <- mr_moe(dat, rf)
+# Obtain estimates from all methods, and generate data metrics
+res <- mr_wrapper(dat)
+
+# MR-MoE - predict the performance of each method
+res_moe <- mr_moe(res, rf)
 ```
+
+
 
 The function does the following:
 
-1. Performs MR using each of 14 MR methods
-2. Applies Steiger filtering to remove SNPs that do not have substantially larger R^2 with the exposure than the outcome. Note - for binary traits ensure number of cases, number of controls, and allele frequencies are available for each SNP. For continuous traits make sure the p-value and sample size is available. The function infers if a trait is binary or continuous based on the units.exposure and units.outcome columns - binary traits must have those values set to 'log odds'
+1. Performs MR using each of 11 MR methods
+2. Applies Steiger filtering or heterogeneity filtering or both to remove SNPs that do not have substantially larger R^2 with the exposure than the outcome. Note - for binary traits ensure number of cases, number of controls, and allele frequencies are available for each SNP. For continuous traits make sure the p-value and sample size is available. The function infers if a trait is binary or continuous based on the units.exposure and units.outcome columns - binary traits must have those values set to 'log odds'
 3. Performs the 14 MR methods again but using the subset of SNPs that survive Steiger filtering
 4. Generates meta data about the summary data to predict the most reliable of the 28 methods applied.
 
@@ -1248,10 +1253,12 @@ For every exposure / outcome combination in the `dat` object, the MR-MoE method 
 
 The result object itself is a list with the following elements:
 
-- `m1` is the set of MR estimates applied using all instruments
-- `m2` is the set of MR estimates applied to the SNPs after Steiger filtering
-- `m3` is a collection of all `m1` and `m2` MR estimates.
+- `estimates` (results from each MR)
+- `heterogeneity` (results from heterogeneity for different filtering approaches)
+- `directional_pleiotropy` (egger intercepts)
+- `info` (metrics used to generate MOE)
 
+Looking at the `estimates`, we see that there is a column called `MOE` which is the predicted AUROC curve performance of each method. 
 
 * * * 
 
