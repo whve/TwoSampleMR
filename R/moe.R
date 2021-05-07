@@ -1,22 +1,3 @@
-#' Calculate I-square
-#'
-#' @param y Vector of effect estimates
-#' @param s Vector of standard errors
-#'
-#' @export
-#' @return Numeric
-Isq <- function(y,s)
-{
-	k <- length(y)
-	w <- 1/s^2
-	sum.w <- sum(w)
-	mu.hat <- sum(y*w)/sum.w
-	Q <- sum(w*(y-mu.hat)^2)
-	Isq <- (Q - (k-1))/Q
-	Isq <- max(0,Isq)
-	return(Isq)
-}
-
 #' @importFrom stats influence.measures ks.test median pnorm residuals shapiro.test var
 system_metrics <- function(dat)
 {
@@ -77,6 +58,9 @@ system_metrics <- function(dat)
 		metrics$cooks_egger <- sum(inf2[,4] > cooksthresh2) / nrow(dat)
 
 		# Homoscedasticity
+		metrics$homosc_ivw <- car::ncvTest(ruck$lmod_ivw)$ChiSquare
+		metrics$homosc_egg <- car::ncvTest(ruck$lmod_egger)$ChiSquare
+
 		# Normality of residuals
 		metrics$shap_ivw <- shapiro.test(residuals(ruck$lmod_ivw))$statistic
 		metrics$shap_egger <- shapiro.test(residuals(ruck$lmod_egger))$statistic
@@ -231,7 +215,7 @@ mr_moe_single <- function(res, rf)
 	methodlist <- names(rf)
 	pred <- lapply(methodlist, function(m)
 	{
-		d <- tibble(
+		d <- dplyr::tibble(
 			method = m,
 			MOE = predict(rf[[m]], metric, type="prob")[,2]
 		)
@@ -247,6 +231,6 @@ mr_moe_single <- function(res, rf)
 	res$estimates$selection[res$estimates$outlier_filtered & !res$estimates$steiger_filtered] <- "HF"
 	res$estimates$selection[!res$estimates$outlier_filtered & !res$estimates$steiger_filtered] <- "Tophits"
 	res$estimates$method2 <- paste(res$estimates$method, "-", res$estimates$selection)
-	res$estimates <- left_join(res$estimates, pred, by=c("method2"="method")) %>% arrange(desc(MOE))
+	res$estimates <- dplyr::left_join(res$estimates, pred, by=c("method2"="method")) %>% dplyr::arrange(dplyr::desc(MOE))
 	return(res)
 }

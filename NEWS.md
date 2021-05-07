@@ -1,10 +1,93 @@
-TwoSampleMR v0.5.3 (Release candidate)
+TwoSampleMR v0.5.7 (Release date: TBC)
+==============
+
+Changes:
+
+* Some p-values that should have been ~0 were being stored as 1 in the elasticsearch database. This has now been fixed and those datasets have been clumped again to re-define the tophits. A full list of affected GWAS is available here: https://github.com/MRCIEU/opengwas-infpval-fix
+* Updated steiger filtering to use effective sample size for case control studies (thanks to @niekverw)
+* Fixed issue with tri-allelic SNPs in harmonisation. Credit to Clare Horscroft (@chorscroft) for spotting the error and fixing
+* Fixed an issue with experimental version of local multivariable MR method. Credit to Mischa Lundberg (@MischaLundberg).
+
+TwoSampleMR v0.5.6 (Release date: 2021-03-25)
+==============
+
+Changes:
+
+* Fix to scatter plot (thanks to Yossi Farjoun @yfarjoun)
+* Update to mr.raps parameters (thanks to Qingyuan Zhao @qingyuanzhao)
+* Bug fix to MVMR (thanks to Conor Judge @conorjudge)
+* Fix to harmonise_data (thanks to Leland Taylor @letaylor)
+* Documentation (thanks to @jinghuazhao)
+
+
+TwoSampleMR v0.5.5 (Release date: 2020-08-09)
+==============
+
+Changes:
+
+* Updating `clump_data` function to operate on outcome datasets in the same way as it operates on exposure datasets. Credit goes to Marina Vabistsevits for spotting this and suggesting a solution.
+* Removing ios function, this has now moved to mr.ios package here: https://github.com/universe77/mr.ios
+* Temporarily removing some studies because the reported effect allele may have been incorrect, will reinstate after this has been further investigated. A list of studies quarantined below:
+    - ieu-a-756
+    - ieu-a-757
+    - ieu-a-758
+    - ieu-a-759
+    - ieu-a-760
+    - ieu-a-761
+    - ieu-a-762
+    - ieu-a-763
+    - ieu-a-764
+    - ieu-a-765
+    - ieu-a-766
+    - ieu-a-767
+    - ieu-a-768
+    - ieu-a-769
+    - ieu-a-770
+    - ieu-a-771
+    - ieu-a-772
+    - ieu-a-773
+    - ieu-a-774
+    - ieu-a-775
+    - ieu-a-776
+    - ieu-a-777
+    - ieu-a-778
+    - ieu-a-779
+    - bbj-a-64
+    - bbj-a-65
+    - bbj-a-66
+    - bbj-a-67
+    - bbj-a-68
+    - bbj-a-69
+    - ebi-a-GCST004364
+    - ebi-a-GCST005215
+    - ebi-a-GCST005216
+    - ebi-a-GCST005221
+    - ebi-a-GCST005222
+    - ieu-a-1086
+    - ieu-a-761
+    - ieu-a-762
+    - ieu-a-763
+    - ieu-a-767
+    - ieu-a-777
+    - ieu-a-779
+
+TwoSampleMR v0.5.4 (Release date: 2020-05-10)
+==============
+
+Changes:
+
+* All datasets now re-instated
+* Added options for different populations in LD operations
+* When converting to MRInput format and supplying an LD matrix, it is possible that multi-allelic variants will be represented differently on in the GWAS and the LD reference panel. Ambiguous alignments were not being removed, now fixed. Credit goes to Mona Almramhi for spotting and fixing this issue.
+
+TwoSampleMR v0.5.3 (Release date: 2020-04-02)
 ==============
 
 Changes:
 
 * When converting to MRInput format and supplying an LD matrix, the LD matrix SNP order was not matching the summary data order. Credit goes to Mona Almramhi for spotting and fixing this issue.
 * Reinstating all datasets that were previously disabled (ukb-a, ukb-d, ubm-a)
+* Fixed bug with mr_wrapper. Thanks to Gunn-Helen Moen for this.
 
 
 TwoSampleMR v0.5.2 (Release date: 2020-03-11)

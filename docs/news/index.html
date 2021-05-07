@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">TwoSampleMR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.6</span>
       </span>
     </div>
 
@@ -100,13 +104,131 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       
     </div>
 
-    <div id="twosamplemr-v050-release-date-2020-11-01" class="section level1">
-<h1 class="page-header">
-<a href="#twosamplemr-v050-release-date-2020-11-01" class="anchor"></a>TwoSampleMR v0.5.0 (Release date: 2020-11-01)</h1>
+    <div id="twosamplemr-v057-release-date-tbc" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.7">
+<a href="#twosamplemr-v057-release-date-tbc" class="anchor"></a>TwoSampleMR v0.5.7 (Release date: TBC)</h1>
+<p>Changes:</p>
+<ul>
+<li>Updated steiger filtering to use effective sample size for case control studies (thanks to @niekverw)</li>
+<li>Fixed issue with tri-allelic SNPs in harmonisation. Credit to Clare Horscroft (@chorscroft) for spotting the error and fixing</li>
+<li>Fixed an issue with experimental version of local multivariable MR method. Credit to Mischa Lundberg (@MischaLundberg).</li>
+</ul>
+</div>
+    <div id="twosamplemr-v056-release-date-2021-03-25" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.6">
+<a href="#twosamplemr-v056-release-date-2021-03-25" class="anchor"></a>TwoSampleMR v0.5.6 (Release date: 2021-03-25)</h1>
+<p>Changes:</p>
+<ul>
+<li>Fix to scatter plot (thanks to Yossi Farjoun @yfarjoun)</li>
+<li>Update to mr.raps parameters (thanks to Qingyuan Zhao @qingyuanzhao)</li>
+<li>Bug fix to MVMR (thanks to Conor Judge @conorjudge)</li>
+<li>Fix to harmonise_data (thanks to Leland Taylor @letaylor)</li>
+<li>Documentation (thanks to @jinghuazhao)</li>
+</ul>
+</div>
+    <div id="twosamplemr-v055-release-date-2020-08-09" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.5">
+<a href="#twosamplemr-v055-release-date-2020-08-09" class="anchor"></a>TwoSampleMR v0.5.5 (Release date: 2020-08-09)</h1>
+<p>Changes:</p>
+<ul>
+<li>Updating <code>clump_data</code> function to operate on outcome datasets in the same way as it operates on exposure datasets. Credit goes to Marina Vabistsevits for spotting this and suggesting a solution.</li>
+<li>Removing ios function, this has now moved to mr.ios package here: <a href="https://github.com/universe77/mr.ios" class="uri">https://github.com/universe77/mr.ios</a>
+</li>
+<li>Temporarily removing some studies because the reported effect allele may have been incorrect, will reinstate after this has been further investigated. A list of studies quarantined below:
+<ul>
+<li>ieu-a-756</li>
+<li>ieu-a-757</li>
+<li>ieu-a-758</li>
+<li>ieu-a-759</li>
+<li>ieu-a-760</li>
+<li>ieu-a-761</li>
+<li>ieu-a-762</li>
+<li>ieu-a-763</li>
+<li>ieu-a-764</li>
+<li>ieu-a-765</li>
+<li>ieu-a-766</li>
+<li>ieu-a-767</li>
+<li>ieu-a-768</li>
+<li>ieu-a-769</li>
+<li>ieu-a-770</li>
+<li>ieu-a-771</li>
+<li>ieu-a-772</li>
+<li>ieu-a-773</li>
+<li>ieu-a-774</li>
+<li>ieu-a-775</li>
+<li>ieu-a-776</li>
+<li>ieu-a-777</li>
+<li>ieu-a-778</li>
+<li>ieu-a-779</li>
+<li>bbj-a-64</li>
+<li>bbj-a-65</li>
+<li>bbj-a-66</li>
+<li>bbj-a-67</li>
+<li>bbj-a-68</li>
+<li>bbj-a-69</li>
+<li>ebi-a-GCST004364</li>
+<li>ebi-a-GCST005215</li>
+<li>ebi-a-GCST005216</li>
+<li>ebi-a-GCST005221</li>
+<li>ebi-a-GCST005222</li>
+<li>ieu-a-1086</li>
+<li>ieu-a-761</li>
+<li>ieu-a-762</li>
+<li>ieu-a-763</li>
+<li>ieu-a-767</li>
+<li>ieu-a-777</li>
+<li>ieu-a-779</li>
+</ul>
+</li>
+</ul>
+</div>
+    <div id="twosamplemr-v054-release-date-2020-05-10" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.4">
+<a href="#twosamplemr-v054-release-date-2020-05-10" class="anchor"></a>TwoSampleMR v0.5.4 (Release date: 2020-05-10)</h1>
+<p>Changes:</p>
+<ul>
+<li>All datasets now re-instated</li>
+<li>Added options for different populations in LD operations</li>
+<li>When converting to MRInput format and supplying an LD matrix, it is possible that multi-allelic variants will be represented differently on in the GWAS and the LD reference panel. Ambiguous alignments were not being removed, now fixed. Credit goes to Mona Almramhi for spotting and fixing this issue.</li>
+</ul>
+</div>
+    <div id="twosamplemr-v053-release-date-2020-04-02" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.3">
+<a href="#twosamplemr-v053-release-date-2020-04-02" class="anchor"></a>TwoSampleMR v0.5.3 (Release date: 2020-04-02)</h1>
+<p>Changes:</p>
+<ul>
+<li>When converting to MRInput format and supplying an LD matrix, the LD matrix SNP order was not matching the summary data order. Credit goes to Mona Almramhi for spotting and fixing this issue.</li>
+<li>Reinstating all datasets that were previously disabled (ukb-a, ukb-d, ubm-a)</li>
+<li>Fixed bug with mr_wrapper. Thanks to Gunn-Helen Moen for this.</li>
+</ul>
+</div>
+    <div id="twosamplemr-v052-release-date-2020-03-11" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.2">
+<a href="#twosamplemr-v052-release-date-2020-03-11" class="anchor"></a>TwoSampleMR v0.5.2 (Release date: 2020-03-11)</h1>
+<p>Changes:</p>
+<ul>
+<li>No longer marking LD functions as deprecated for now. Thanks to Jonas Bovijn for discussions on this.</li>
+<li>Various fixes for <code>R CMD check</code> warnings and notes.</li>
+</ul>
+</div>
+    <div id="twosamplemr-v051-release-date-2020-02-14" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.1">
+<a href="#twosamplemr-v051-release-date-2020-02-14" class="anchor"></a>TwoSampleMR v0.5.1 (Release date: 2020-02-14)</h1>
+<p>Changes:</p>
+<ul>
+<li>A number of datasets have been found to have issues since 0.5.0. These include"</li>
+<li>Some a minority of non-effect alleles being incorrect in the ieu-a batch. The consequence of this is harmonisation may have thrown out some SNPs due to harmonisation mismatches. Error arose in 0.5.0 and now fixed</li>
+<li>p-value issues with the ubm-a batch. This would have led to fewer top-hits being identified than they should have. Error arose in 0.5.0 and currently disabled</li>
+<li>Effect allele frequency issues with the ukb-a batch, potentially due to misreported effect alleles. Error arose in 0.5.0 and currently disabled</li>
+</ul>
+</div>
+    <div id="twosamplemr-v050-release-date-2020-01-01" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0">
+<a href="#twosamplemr-v050-release-date-2020-01-01" class="anchor"></a>TwoSampleMR v0.5.0 (Release date: 2020-01-01)</h1>
 <p>Changes:</p>
 <ul>
 <li>Major update, details here: <a href="https://mrcieu.github.io/TwoSampleMR/articles/gwas2020.html" class="uri">https://mrcieu.github.io/TwoSampleMR/articles/gwas2020.html</a>
@@ -114,7 +236,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0426-release-date-2019-12-01" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.26">
 <a href="#twosamplemr-v0426-release-date-2019-12-01" class="anchor"></a>TwoSampleMR v0.4.26 (Release date: 2019-12-01)</h1>
 <p>Changes:</p>
 <ul>
@@ -123,16 +245,16 @@
 </ul>
 </div>
     <div id="twosamplemr-v0425-release-date-2019-09-12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.25">
 <a href="#twosamplemr-v0425-release-date-2019-09-12" class="anchor"></a>TwoSampleMR v0.4.25 (Release date: 2019-09-12)</h1>
 <p>Changes:</p>
 <ul>
-<li>Changes in googleAuthR package break authentication. Added interception to install older version while this is being fixed. Please use <code><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">devtools::install_github("MarkEdmondson1234/googleAuthR@v0.8.1")</a></code>
+<li>Changes in googleAuthR package break authentication. Added interception to install older version while this is being fixed. Please use <code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("MarkEdmondson1234/googleAuthR@v0.8.1")</a></code>
 </li>
 </ul>
 </div>
     <div id="twosamplemr-v0424-release-date-2019-09-10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.24">
 <a href="#twosamplemr-v0424-release-date-2019-09-10" class="anchor"></a>TwoSampleMR v0.4.24 (Release date: 2019-09-10)</h1>
 <p>Changes:</p>
 <ul>
@@ -140,7 +262,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0423-release-date-2019-08-12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.23">
 <a href="#twosamplemr-v0423-release-date-2019-08-12" class="anchor"></a>TwoSampleMR v0.4.23 (Release date: 2019-08-12)</h1>
 <p>Changes:</p>
 <ul>
@@ -149,7 +271,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0422-release-date-2019-02-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.22">
 <a href="#twosamplemr-v0422-release-date-2019-02-22" class="anchor"></a>TwoSampleMR v0.4.22 (Release date: 2019-02-22)</h1>
 <p>Changes:</p>
 <ul>
@@ -157,7 +279,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0421-release-date-2019-02-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.21">
 <a href="#twosamplemr-v0421-release-date-2019-02-19" class="anchor"></a>TwoSampleMR v0.4.21 (Release date: 2019-02-19)</h1>
 <p>Changes:</p>
 <ul>
@@ -165,7 +287,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0420-release-date-2019-01-31" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.20">
 <a href="#twosamplemr-v0420-release-date-2019-01-31" class="anchor"></a>TwoSampleMR v0.4.20 (Release date: 2019-01-31)</h1>
 <p>Changes:</p>
 <ul>
@@ -174,7 +296,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0419-release-date-2019-01-31" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.19">
 <a href="#twosamplemr-v0419-release-date-2019-01-31" class="anchor"></a>TwoSampleMR v0.4.19 (Release date: 2019-01-31)</h1>
 <p>Changes:</p>
 <ul>
@@ -185,7 +307,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0418-release-date-2018-12-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.18">
 <a href="#twosamplemr-v0418-release-date-2018-12-03" class="anchor"></a>TwoSampleMR v0.4.18 (Release date: 2018-12-03)</h1>
 <p>Changes:</p>
 <ul>
@@ -193,7 +315,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0417-release-date-2018-12-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.17">
 <a href="#twosamplemr-v0417-release-date-2018-12-03" class="anchor"></a>TwoSampleMR v0.4.17 (Release date: 2018-12-03)</h1>
 <p>Changes:</p>
 <ul>
@@ -201,7 +323,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v0417-release-date-2018-12-03-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.17">
 <a href="#twosamplemr-v0417-release-date-2018-12-03-1" class="anchor"></a>TwoSampleMR v0.4.17 (Release date: 2018-12-03)</h1>
 <p>Changes:</p>
 <ul>
@@ -209,7 +331,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v034-release-date-2017-11-30" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.4">
 <a href="#twosamplemr-v034-release-date-2017-11-30" class="anchor"></a>TwoSampleMR v0.3.4 (Release date: 2017-11-30)</h1>
 <p>Changes:</p>
 <ul>
@@ -220,7 +342,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v033-release-date-2017-11-23" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.3">
 <a href="#twosamplemr-v033-release-date-2017-11-23" class="anchor"></a>TwoSampleMR v0.3.3 (Release date: 2017-11-23)</h1>
 <p>Changes:</p>
 <ul>
@@ -228,7 +350,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v032-release-date-2017-11-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.2">
 <a href="#twosamplemr-v032-release-date-2017-11-22" class="anchor"></a>TwoSampleMR v0.3.2 (Release date: 2017-11-22)</h1>
 <p>Changes:</p>
 <ul>
@@ -236,7 +358,7 @@
 </ul>
 </div>
     <div id="twosamplemr-v031-release-date-2017-11-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.1">
 <a href="#twosamplemr-v031-release-date-2017-11-22" class="anchor"></a>TwoSampleMR v0.3.1 (Release date: 2017-11-22)</h1>
 <p>Changes:</p>
 <ul>
@@ -246,28 +368,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#twosamplemr-v050-release-date-2020-11-01">0.5.0</a></li>
-        <li><a href="#twosamplemr-v0426-release-date-2019-12-01">0.4.26</a></li>
-        <li><a href="#twosamplemr-v0425-release-date-2019-09-12">0.4.25</a></li>
-        <li><a href="#twosamplemr-v0424-release-date-2019-09-10">0.4.24</a></li>
-        <li><a href="#twosamplemr-v0423-release-date-2019-08-12">0.4.23</a></li>
-        <li><a href="#twosamplemr-v0422-release-date-2019-02-22">0.4.22</a></li>
-        <li><a href="#twosamplemr-v0421-release-date-2019-02-19">0.4.21</a></li>
-        <li><a href="#twosamplemr-v0420-release-date-2019-01-31">0.4.20</a></li>
-        <li><a href="#twosamplemr-v0419-release-date-2019-01-31">0.4.19</a></li>
-        <li><a href="#twosamplemr-v0418-release-date-2018-12-03">0.4.18</a></li>
-        <li><a href="#twosamplemr-v0417-release-date-2018-12-03">0.4.17</a></li>
-        <li><a href="#twosamplemr-v0417-release-date-2018-12-03-1">0.4.17</a></li>
-        <li><a href="#twosamplemr-v034-release-date-2017-11-30">0.3.4</a></li>
-        <li><a href="#twosamplemr-v033-release-date-2017-11-23">0.3.3</a></li>
-        <li><a href="#twosamplemr-v032-release-date-2017-11-22">0.3.2</a></li>
-        <li><a href="#twosamplemr-v031-release-date-2017-11-22">0.3.1</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -275,11 +379,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Gibran Hemani, Philip Haycock, Jie Zheng, Tom Gaunt, Ben Elsworth.</p>
+  <p>Developed by Gibran Hemani, Philip Haycock, Jie Zheng, Tom Gaunt, Ben Elsworth, Tom Palmer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

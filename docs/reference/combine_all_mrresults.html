@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,8 +40,11 @@
 
 
 <meta property="og:title" content="Combine all mr results — combine_all_mrresults" />
-<meta property="og:description" content="This function combines results of mr(), mr_heterogeneity(), mr_pleiotropy_test() and mr_singlesnp() into a single data frame. It also merges the results with outcome study level characteristics in available_outcomes(). If desired it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals). The exposure and outcome columns from the output from mr() contain both the trait names and trait ids. The combine_all_mrresults() function splits these into separate columns by default." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:description" content="This function combines results of mr(), mr_heterogeneity(), mr_pleiotropy_test() and mr_singlesnp() into a single data frame.
+It also merges the results with outcome study level characteristics in available_outcomes().
+If desired it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals).
+The exposure and outcome columns from the output from mr() contain both the trait names and trait ids.
+The combine_all_mrresults() function splits these into separate columns by default." />
 
 
 
@@ -55,7 +62,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">TwoSampleMR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.6</span>
       </span>
     </div>
 
@@ -108,54 +115,58 @@
     </div>
 
     <div class="ref-description">
-    <p>This function combines results of mr(), mr_heterogeneity(), mr_pleiotropy_test() and mr_singlesnp() into a single data frame. It also merges the results with outcome study level characteristics in available_outcomes(). If desired it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals). The exposure and outcome columns from the output from mr() contain both the trait names and trait ids. The combine_all_mrresults() function splits these into separate columns by default.</p>
+    <p>This function combines results of <code><a href='mr.html'>mr()</a></code>, <code><a href='mr_heterogeneity.html'>mr_heterogeneity()</a></code>, <code><a href='mr_pleiotropy_test.html'>mr_pleiotropy_test()</a></code> and <code><a href='mr_singlesnp.html'>mr_singlesnp()</a></code> into a single data frame.
+It also merges the results with outcome study level characteristics in <code><a href='available_outcomes.html'>available_outcomes()</a></code>.
+If desired it also exponentiates results (e.g. if the user wants log odds ratio converted into odds ratios with 95 percent confidence intervals).
+The exposure and outcome columns from the output from <code><a href='mr.html'>mr()</a></code> contain both the trait names and trait ids.
+The <code>combine_all_mrresults()</code> function splits these into separate columns by default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>combine_all_mrresults</span>(
-  <span class='no'>res</span>,
-  <span class='no'>het</span>,
-  <span class='no'>plt</span>,
-  <span class='no'>sin</span>,
-  <span class='kw'>ao_slc</span> <span class='kw'>=</span> <span class='no'>T</span>,
-  <span class='kw'>Exp</span> <span class='kw'>=</span> <span class='no'>F</span>,
-  <span class='kw'>split.exposure</span> <span class='kw'>=</span> <span class='no'>F</span>,
-  <span class='kw'>split.outcome</span> <span class='kw'>=</span> <span class='no'>F</span>
-)</pre>
+    <pre class="usage"><span class='fu'>combine_all_mrresults</span><span class='op'>(</span>
+  <span class='va'>res</span>,
+  <span class='va'>het</span>,
+  <span class='va'>plt</span>,
+  <span class='va'>sin</span>,
+  ao_slc <span class='op'>=</span> <span class='cn'>T</span>,
+  Exp <span class='op'>=</span> <span class='cn'>F</span>,
+  split.exposure <span class='op'>=</span> <span class='cn'>F</span>,
+  split.outcome <span class='op'>=</span> <span class='cn'>F</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>res</th>
-      <td><p>Results from mr()</p></td>
+      <td><p>Results from <code><a href='mr.html'>mr()</a></code>.</p></td>
     </tr>
     <tr>
       <th>het</th>
-      <td><p>Results from mr_heterogeneity()</p></td>
+      <td><p>Results from <code><a href='mr_heterogeneity.html'>mr_heterogeneity()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>plt</th>
+      <td><p>Results from <code><a href='mr_pleiotropy_test.html'>mr_pleiotropy_test()</a></code>.</p></td>
     </tr>
     <tr>
       <th>sin</th>
-      <td><p>Results from mr_singlesnp()</p></td>
+      <td><p>Results from <code><a href='mr_singlesnp.html'>mr_singlesnp()</a></code>.</p></td>
     </tr>
     <tr>
       <th>ao_slc</th>
-      <td><p>Logical; if set to TRUE then outcome study level characteristics are retrieved from available_outcomes(). Default is TRUE.</p></td>
+      <td><p>Logical; if set to <code>TRUE</code> then outcome study level characteristics are retrieved from <code><a href='available_outcomes.html'>available_outcomes()</a></code>. Default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>Exp</th>
-      <td><p>Logical; if set to TRUE results are exponentiated. Useful if user wants log odds ratios expressed as odds ratios. Default is FALSE.</p></td>
+      <td><p>Logical; if set to <code>TRUE</code> results are exponentiated. Useful if user wants log odds ratios expressed as odds ratios. Default is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>split.exposure</th>
-      <td><p>Logical; if set to TRUE the exposure column is split into separate columns for the exposure name and exposure ID. Default is FALSE.</p></td>
+      <td><p>Logical; if set to <code>TRUE</code> the exposure column is split into separate columns for the exposure name and exposure ID. Default is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>split.outcome</th>
-      <td><p>Logical; if set to TRUE the outcome column is split into separate columns for the outcome name and outcome ID. Default is FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>pleiotropy</th>
-      <td><p>Results from mr_pleiotropy_test()</p></td>
+      <td><p>Logical; if set to TRUE the outcome column is split into separate columns for the outcome name and outcome ID. Default is <code>FALSE</code>.</p></td>
     </tr>
     </table>
 
@@ -164,24 +175,21 @@
     <p>data frame</p>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Gibran Hemani, Philip Haycock, Jie Zheng, Tom Gaunt, Ben Elsworth.</p>
+  <p>Developed by Gibran Hemani, Philip Haycock, Jie Zheng, Tom Gaunt, Ben Elsworth, Tom Palmer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

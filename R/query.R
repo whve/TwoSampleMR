@@ -182,6 +182,7 @@ extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 
 #'
 #' @param d Data frame
 #' @return Cleaned data frame
+#' @keywords internal
 cleanup_outcome_data <- function(d)
 {
 	d$se.outcome[d$se.outcome <= 0] <- NA
@@ -197,6 +198,7 @@ cleanup_outcome_data <- function(d)
 #' @param pval pvals
 #' @return array
 #' @importFrom stats qnorm
+#' @export
 get_se <- function(eff, pval)
 {
 	abs(eff) / abs(qnorm(pval / 2))
@@ -207,6 +209,7 @@ get_se <- function(eff, pval)
 #'
 #' @param d Data frame
 #' @return Data frame
+#' @keywords internal
 format_d <- function(d)
 {
 

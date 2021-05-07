@@ -13,7 +13,8 @@ mr_forest_plot_grouped(
   outfile_Name = "annot_FP.pdf",
   left_Col_Names = c("Exposure", "Outcome"),
   left_Col_Titles = NULL,
-  right_Col_Names = c("p", "Outcome.n.case", "Outcome.n.control", "Outcome.sample.size"),
+  right_Col_Names = c("p", "Outcome.n.case", "Outcome.n.control",
+    "Outcome.sample.size"),
   right_Col_Titles = NULL,
   debug = FALSE,
   log_ES = FALSE,
@@ -59,3 +60,4 @@ grid object giving the forest plot (or plot as pdf)
 \description{
 Grouped forest plot
 }
+\keyword{internal}

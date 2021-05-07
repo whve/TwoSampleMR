@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">TwoSampleMR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.6</span>
       </span>
     </div>
 
@@ -118,12 +122,23 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
-          <p><code><a href="Isq.html">Isq()</a></code> <code><a href="Isq.html">Isq()</a></code> </p>
+          <p><code><a href="add_metadata.html">add_metadata()</a></code> </p>
         </td>
-        <td><p>Calculate I-square</p></td>
+        <td><p>Add meta data to extracted data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_rsq.html">add_rsq()</a></code> </p>
+        </td>
+        <td><p>Estimate r-square of each association</p></td>
       </tr><tr>
         
         <td>
@@ -136,12 +151,6 @@
           <p><code><a href="available_outcomes.html">available_outcomes()</a></code> </p>
         </td>
         <td><p>Get list of studies with available GWAS summary statistics through API</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cleanup_outcome_data.html">cleanup_outcome_data()</a></code> </p>
-        </td>
-        <td><p>Avoid issues in MR by finding impossible vals and setting to NA</p></td>
       </tr><tr>
         
         <td>
@@ -175,12 +184,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="create_label.html">create_label()</a></code> </p>
-        </td>
-        <td><p>Create fixed width label</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="dat_to_MRInput.html">dat_to_MRInput()</a></code> </p>
         </td>
         <td><p>Convert TwoSampleMR format to MendelianRandomization format</p></td>
@@ -202,6 +205,12 @@
           <p><code><a href="directionality_test.html">directionality_test()</a></code> </p>
         </td>
         <td><p>Perform MR Steiger test of directionality</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="effective_n.html">effective_n()</a></code> </p>
+        </td>
+        <td><p>Estimate the effective sample size in a case control study</p></td>
       </tr><tr>
         
         <td>
@@ -253,12 +262,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="forest_plot_basic.html">forest_plot_basic()</a></code> </p>
-        </td>
-        <td><p>A basic forest plot</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="forest_plot_basic2.html">forest_plot_basic2()</a></code> </p>
         </td>
         <td><p>A basic forest plot</p></td>
@@ -274,12 +277,6 @@
           <p><code><a href="format_aries_mqtl.html">format_aries_mqtl()</a></code> </p>
         </td>
         <td><p>Get data from methylation QTL results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="format_d.html">format_d()</a></code> </p>
-        </td>
-        <td><p>Format the returned table from the MySQL database</p></td>
       </tr><tr>
         
         <td>
@@ -325,15 +322,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="get_p_from_r2n.html">get_p_from_r2n()</a></code> </p>
-        </td>
-        <td><p>Calculate p-value from rsq and sample size</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="get_population_allele_frequency.html">get_population_allele_frequency()</a></code> </p>
         </td>
         <td><p>Estimate the allele frequency in population from case/control summary data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_p_from_r2n.html">get_p_from_r2n()</a></code> </p>
+        </td>
+        <td><p>Calculate p-value from rsq and sample size</p></td>
       </tr><tr>
         
         <td>
@@ -361,15 +358,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="ios.html">ios()</a></code> </p>
+          <p><code><a href="harmonise_ld_dat.html">harmonise_ld_dat()</a></code> </p>
         </td>
-        <td><p>Calculate index of suspicion</p></td>
+        <td><p>Harmonise LD matrix against summary data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="knit_report.html">knit_report()</a></code> </p>
+          <p><code><a href="Isq.html">Isq()</a></code> </p>
         </td>
-        <td><p>Knit report using working environment</p></td>
+        <td><p>I-square calculation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ldsc_h2.html">ldsc_h2()</a></code> </p>
+        </td>
+        <td><p>Univariate LDSC</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ldsc_rg.html">ldsc_rg()</a></code> </p>
+        </td>
+        <td><p>Bivariate LDSC</p></td>
       </tr><tr>
         
         <td>
@@ -415,12 +424,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="mr_forest_plot_grouped.html">mr_forest_plot_grouped()</a></code> </p>
-        </td>
-        <td><p>Grouped forest plot</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="mr_funnel_plot.html">mr_funnel_plot()</a></code> </p>
         </td>
         <td><p>Funnel plot</p></td>
@@ -429,7 +432,7 @@
         <td>
           <p><code><a href="mr_heterogeneity.html">mr_heterogeneity()</a></code> </p>
         </td>
-        <td><p>Get heterogeneity stats</p></td>
+        <td><p>Get heterogeneity statistics</p></td>
       </tr><tr>
         
         <td>
@@ -495,8 +498,7 @@
         <td>
           <p><code><a href="mr_method_list.html">mr_method_list()</a></code> </p>
         </td>
-        <td><p>Get list of available MR methods
-8</p></td>
+        <td><p>Get list of available MR methods</p></td>
       </tr><tr>
         
         <td>
@@ -586,7 +588,7 @@
         <td>
           <p><code><a href="mr_simple_mode_nome.html">mr_simple_mode_nome()</a></code> </p>
         </td>
-        <td><p>MR weighted mode estimator (NOME)</p></td>
+        <td><p>MR simple mode estimator (NOME)</p></td>
       </tr><tr>
         
         <td>
@@ -622,7 +624,7 @@
         <td>
           <p><code><a href="mr_wald_ratio.html">mr_wald_ratio()</a></code> </p>
         </td>
-        <td><p>Perform 2 sample IV using Wald ratio</p></td>
+        <td><p>Perform 2 sample IV using Wald ratio.</p></td>
       </tr><tr>
         
         <td>
@@ -659,6 +661,12 @@
           <p><code><a href="mv_extract_exposures.html">mv_extract_exposures()</a></code> </p>
         </td>
         <td><p>Extract exposure variables for multivariable MR</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mv_extract_exposures_local.html">mv_extract_exposures_local()</a></code> </p>
+        </td>
+        <td><p>Attempt to perform MVMR using local data</p></td>
       </tr><tr>
         
         <td>
@@ -716,21 +724,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="run_mr_presso.html">run_mr_presso()</a></code> </p>
-        </td>
-        <td><p>Wrapper for MR-PRESSO</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="run_mrmix.html">run_mrmix()</a></code> </p>
         </td>
         <td><p>Perform MRMix analysis on harmonised dat object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="simple_cap.html">simple_cap()</a></code> </p>
+          <p><code><a href="run_mr_presso.html">run_mr_presso()</a></code> </p>
         </td>
-        <td><p>Simple attempt at correcting string case</p></td>
+        <td><p>Wrapper for MR-PRESSO</p></td>
       </tr><tr>
         
         <td>
@@ -788,6 +790,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="TwoSampleMR-package.html">TwoSampleMR-package</a></code> </p>
+        </td>
+        <td><p>TwoSampleMR: Two Sample MR functions and interface to MR Base database</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="weighted_median.html">weighted_median()</a></code> </p>
         </td>
         <td><p>Weighted median method</p></td>
@@ -802,22 +810,21 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Gibran Hemani, Philip Haycock, Jie Zheng, Tom Gaunt, Ben Elsworth.</p>
+  <p>Developed by Gibran Hemani, Philip Haycock, Jie Zheng, Tom Gaunt, Ben Elsworth, Tom Palmer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
